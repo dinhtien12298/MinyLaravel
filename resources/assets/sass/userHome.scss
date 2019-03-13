@@ -1,0 +1,351 @@
+.user-body-homepage {
+    background: #f1f1f1;
+}
+
+.user-body-homepage #user-infomation, .user-body-homepage #post-management {
+    height: 580px;
+}
+
+/* User Homepage Menu */
+#user-menu {
+    margin-top: 107px;
+    position: fixed;
+    z-index: 1;
+    top: 30px;
+    list-style: none;
+    padding: 0;
+}
+
+#user-menu li {
+    display: block;
+    position: relative;
+    transition: color 0.3s ease-in-out;
+    transform: perspective(1px);
+    padding: 15px 25px;
+    border-radius: 14px;
+    border: #26af92 solid 3px;
+    margin-bottom: 15px;
+}
+
+#user-menu li:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ff9900;
+    transform: scaleY(0);
+    transition: 0.3s ease-out;
+    border-radius: 10px;
+}
+
+#user-menu li:hover:before {
+    transform: scaleY(1);
+}
+
+#user-menu a {
+    font-size: 23px;
+    color: #26af92;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+#user-menu li:hover {
+    border: #ff9900 solid 3px;
+    cursor: pointer;
+}
+
+#user-menu li:hover a {
+    color: #f7f8fa;
+}
+
+.content-container {
+    padding-left: 25%;
+}
+
+.content-container
+
+/* Thông tin cá nhân */
+.error-messages {
+    color: #ff9900;
+    padding-left: 28px;
+}
+
+#user-infomation {
+    padding: 30px 0;
+}
+
+#user-infomation .update-button {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+#user-infomation button {
+    background: #ff9900;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 20px;
+    text-align: center;
+    color: #ffffff;
+    outline: none;
+    transition: 0.1s ease-in-out;
+    margin-top: 10px;
+}
+
+#user-infomation button:hover {
+    cursor: pointer;
+    box-shadow: 0 0 15px #999999;
+}
+
+#user-infomation .user-infomation-content {
+    column-count: 2;
+}
+
+#user-infomation .user-infomation-content .info-element {
+    width: 40%;
+    min-width: 360px;
+    margin: 0 auto;
+    border: #777777 solid 3px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+
+#user-infomation .user-infomation-content .info-element:hover {
+    box-shadow: 0 0 15px #777777;
+    cursor: pointer;
+}
+
+#user-infomation .user-infomation-content .info-element div {
+    width: 50%;
+    padding: 15px 5px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#user-infomation .user-infomation-content .info-element input {
+    width: 50%;
+    padding: 15px 5px;
+    text-align: center;
+    box-sizing: border-box;
+    color: #333333;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    overflow: hidden;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+#user-infomation .user-infomation-content .info-element input::placeholder {
+    color: #333333;
+    font-size: 16px;
+}
+
+#user-infomation .user-infomation-content .info-element .info-name {
+    background: #777777;
+    color: #ffffff;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+#user-infomation .user-infomation-content .info-element .info-content {
+    color: #333333;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    overflow: hidden;
+}
+
+/* Form đăng bài */
+#post-create {
+    padding: 50px 0;
+}
+
+#post-create form {
+    border-radius: 5px;
+    box-shadow: 0 0 15px #999999;
+    width: 80%;
+    margin: 0 auto;
+    background: #f1f1f1;
+}
+
+#post-create .post-banner {
+    background-image: url("../images/all/banner-mobile.png");
+    height: 99px;
+    background-size: contain;
+    background-position: center;
+    color: #f1f1f1;
+    box-sizing: border-box;
+    padding: 10px 30px;
+}
+
+#post-create .post-banner hr {
+    display: block;
+    border: 0;
+    border-top: 1px solid #ffffff;
+    width: 35%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    opacity: 0.7;
+}
+
+#post-create .form-element {
+    padding: 10px 30px;
+}
+
+#post-create .form-element label {
+    font-size: 19px;
+    color: #26af92;
+    display: block;
+    margin-bottom: 5px;
+}
+
+#post-create .form-element input::placeholder {
+    opacity: 0.8;
+    font-size: 15px;
+}
+
+#post-create .form-element input,
+#post-create .form-element select {
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    border: #ff9900 solid 2px;
+    outline: none;
+}
+
+#post-create .form-element select option {
+    text-transform: capitalize;
+}
+
+#post-create .double-element {
+    display: flex;
+}
+
+#post-create .double-element div {
+    width: 50%;
+}
+
+#post-create .form-element .title-input {
+    width: 85%;
+}
+
+#post-create .form-element .class-input, #post-create .form-element .subject-input {
+    width: 70%;
+}
+
+#post-create button {
+    margin: 15px 30px;
+    background: #ff9900;
+    border: #ff9900 solid 3px;
+    border-radius: 20px;
+    color: #ffffff;
+    padding: 5px 20px;
+    outline: none;
+    width: 18%;
+    transition: 0.3s ease-in-out;
+}
+
+#post-create button:hover {
+    cursor: pointer;
+    width: 25%;
+}
+
+/* Quản lý bài viết */
+#post-management {
+    overflow: auto;
+    box-shadow: 0 0 10px #999999;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#post-management table {
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+}
+
+table tr {
+    border-bottom: 1px solid #ccc;
+    color: #666666;
+}
+
+table tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+table tr:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: top;
+}
+
+table th:first-letter, table td:first-letter {
+    text-transform: capitalize;
+}
+
+table th:first-child {
+    width: 20%;
+}
+
+table th:nth-child(3),
+table th:nth-child(4),
+table th:last-child {
+    width: 10%;
+}
+
+table th:nth-child(2) {
+    width: 8%;
+}
+
+table th:nth-child(5) {
+    width: 12%;
+}
+
+table th:nth-child(6) {
+    width: 30%;
+}
+
+.table-heading {
+    color: #ffffff !important;
+    background-color: #26af92 !important;
+}
+
+table a {
+    text-decoration: none;
+    color: #26af92;
+    transition: 0.2s ease-in-out;
+    display: block;
+    padding: 2px 0;
+}
+
+table a:hover {
+    cursor: pointer;
+    color: #ff9900;
+}
+
+table tr:hover {
+    background: #dddddd;
+    cursor: pointer;
+}
+
+.content-column {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1em;
+    max-height: 4.25em;
+}
+
+.update-container {
+    padding-left: 25%;
+}

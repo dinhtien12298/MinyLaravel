@@ -1,0 +1,233 @@
+/* Banner */
+#banner {
+    background-image: url('../images/all/banner.png');
+}
+
+/* Content */
+.content .main-content {
+    margin-bottom: 25px;
+}
+
+/* Post Detail */
+.post-detail {
+    width: 73.5%;
+    padding-right: 3%;
+}
+
+/* Side Bar */
+.side-bar {
+    width: 26.5%;
+}
+
+.side-bar .related {
+    background: #ffffff;
+    width: 100%;
+    padding: 10px 8%;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+}
+
+.side-bar .related .related-heading {
+    width: 100%;
+    border-bottom: #dddddd solid 1px;
+    padding-bottom: 15px;
+    padding-top: 5px;
+}
+
+.side-bar .related .line-orange:before {
+    width: 40px;
+    margin-bottom: 30px;
+}
+
+.side-bar .related .related-content {
+    width: 100%;
+}
+
+.side-bar .related .related-content a {
+    color: #26af92;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 21px;
+}
+
+.side-bar .related .related-content a:hover {
+    text-decoration: underline;
+}
+
+.post-detail .post-main .post-heading {
+    background: #f7f8fa;
+    display: flex;
+    padding: 7px 2%;
+}
+
+.post-detail .post-main .post-heading .post-author {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.post-detail .post-main .post-heading a {
+    margin-right: 2%;
+}
+
+.post-detail .post-main .post-heading a .author-thumbnail {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.post-detail .post-main .post-heading a {
+    color: #26af92;
+    text-decoration: none;
+}
+
+.post-detail .post-main .post-heading .post-info {
+    display: flex;
+    width: 50%;
+}
+
+.post-detail .post-main .post-heading .post-info div {
+    color: #999999;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.post-detail .post-main .post-heading .post-info div:first-child {
+    margin-right: -70%;
+}
+
+.post-detail .post-main .post-heading .post-info div img {
+    margin-right: 2%;
+}
+
+.post-detail .post-main .post-heading .post-info div:last-child img {
+    margin-bottom: -1px; 
+}
+
+.post-detail .post-content {
+    padding: 40px 8%;
+    background: #ffffff;
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+.post-detail .fb-comments {
+    background: #ffffff;
+    padding: 20px 2% !important;
+    width: 96% !important;
+    margin-bottom: 20px;
+}
+
+.post-detail .fb-comments span iframe {
+    width: 100% !important;
+}
+
+/* More Post */
+.post-model {
+    margin: 12px 1.5%;
+    padding: 15px 1.5%;
+    width: 44%;
+}
+
+@media screen and (max-width: 768px) {
+    header, .side-bar img {
+        display: none;
+    }
+
+    #banner {
+        background-image: url('../images/all/banner-mobile.png');
+        height: 99px;
+    }
+
+    #banner .breadcrumb {
+        padding-top: 7px;
+        padding-left: 3%;
+        padding-right: 3%;
+        font-size: 11px;
+    }
+
+    #banner .banner-heading {
+        padding-top: 15px;
+        font-size: 19px;
+    }
+
+    .main-content {
+        display: block;
+    }
+
+    .post-model {
+        margin: 9px 1.5%;
+        padding: 10px 2%;
+        width: 95%;
+    }
+
+    .more-post .tab-heading .tab-title {
+        font-size: 23px;
+        margin-top: 7px;
+    }
+
+    .more-post .tab-post .post-model:nth-child(4), 
+    .more-post .tab-post .post-model:nth-child(5),
+    .more-post .tab-post .post-model:nth-child(6) {
+        display:none;
+    }
+
+    .post-detail {
+        width: 100%;
+        padding-right: 0;
+    }
+
+    .post-detail .post-main .post-heading .post-info div:first-child {
+        margin-right: -50%;
+    }
+
+    .post-model .post-heading .post-info div:first-child {
+        margin-right: -55%;
+    }
+
+    .post-detail .post-content {
+        padding: 30px 8%;
+        font-size: 16px;
+    }
+
+    .post-detail .fb-comments {
+        padding: 10px 2% !important;
+        display: inline-block;
+        z-index: 0;
+    }
+
+    /* Side Bar */
+    .side-bar {
+        width: 100%;
+    }
+
+    .side-bar .related {
+        padding: 10px 2%;
+        margin-bottom: 0;
+    }
+
+    .side-bar .related .related-heading {
+        padding-bottom: 10px;
+        padding-top: 0;
+    }
+
+    .side-bar .related .line-orange:before {
+        margin-bottom: 15px;
+    }
+
+    .side-bar .related .related-content a {
+        margin-bottom: 10px;
+    }
+
+    .tab-heading {
+        width: 99.5%;
+        padding-right: 1px;
+        margin-left: 0.5%;
+    }
+    
+    .line-orange:before {
+        margin-left: 0.5%;
+    }
+}
