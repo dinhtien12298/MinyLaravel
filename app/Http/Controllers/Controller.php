@@ -35,12 +35,21 @@ class Controller extends BaseController
     public function getMenu()
     {
         $data = [];
-        $all_classes = DB::table('classes')->get()->toArray();
+        $data_menu = [];
+        $all_classes = array_reverse(DB::table('classes')->get()->toArray());
         foreach ($all_classes as $class) {
             $index = array_search($class, $all_classes);
+            $data_menu[$index][0] = [];
+            $data_menu[$index][1] = [];
             $class_name = $class->class;
-            $data_menu = DB::table('subjects')->select('id', 'subject', 'class')->where('class', "$class_name")->get();
+            $all_menu[$index] = DB::table('subjects')->select('id', 'subject', 'class')->where('class', "$class_name")->get();
             $class_images[$index] = explode(" ", $class_name);
+            for ($i = 0; $i < sizeof($all_menu[$index]) - intval(sizeof($all_menu[$index]) / 2); $i++) {
+                array_push($data_menu[$index][0], $all_menu[$index][$i]);
+            }
+            for ($i = intval(sizeof($all_menu[$index]) / 2) + 1; $i < sizeof($all_menu[$index]); $i++) {
+                array_push($data_menu[$index][1], $all_menu[$index][$i]);
+            }
         }
         $data['all_classes'] = $all_classes;
         $data['data_menu'] = $data_menu;

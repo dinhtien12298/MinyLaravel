@@ -1,6 +1,3 @@
-@extends('basicCategory')
-@extends('detailCategory')
-@section('sidebar')
 <div class="side-bar">
     @if (isset($data_related) && sizeof($data_related) > 0)
         <div class="related">
@@ -10,7 +7,7 @@
             <div class="line-orange"></div>
             <div class="related-content f-regular-14">
                 @for ($i = 0; $i < sizeof($data_related); $i++)
-                    <a href="/index.php?controller=post&action=detail&post={{ $data_related[$i]->id }}">{{ $data_related[$i]->title }}</a>
+                    <a href="/bai-viet/{{ $data_related[$i]->id }}">{{ $data_related[$i]->title }}</a>
                 @endfor
             </div>
         </div>
@@ -21,4 +18,3 @@
         @endforeach
     @endif
 </div>
-@stop

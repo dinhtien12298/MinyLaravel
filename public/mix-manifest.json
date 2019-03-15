@@ -1,0 +1,12 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/category.css": "/css/category.css",
+    "/css/common.css": "/css/common.css",
+    "/css/detail.css": "/css/detail.css",
+    "/css/homepage.css": "/css/homepage.css",
+    "/css/userHome.css": "/css/userHome.css",
+    "/js/userHome.js": "/js/userHome.js",
+    "/js/homepage.js": "/js/homepage.js",
+    "/js/common.js": "/js/common.js",
+    "/js/category.js": "/js/category.js"
+}

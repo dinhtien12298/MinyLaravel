@@ -26,17 +26,17 @@ for (let i = 0; i < subjectTab.length; i++) {
                         var posts = response.data;
                         var tabPostHTML = posts.map(
                             post => `
-                            <div class="post-model" onclick="directTo('/index.php?controller=post&action=detail&post=${ post.id }')">
+                            <div class="post-model" onclick="directTo('/bai-viet/${ post.id }')">
                                 <div class="post-title">
-                                    <a href="/miny/index.php?controller=post&action=detail&post=${ post.id }" class="f-medium-17">${ post.title }</a>
+                                    <a href="/bai-viet/${ post.id }" class="f-medium-17">${ post.title }</a>
                                 </div>
                                 <div class="post-heading d-flex">
                                     <div class="post-author f-medium-12">
                                         ${ post.fullname }
                                     </div>
                                     <div class="post-info f-regular-13">
-                                        <div><img src="Public/Images/homepage/icon-view.png" alt="icon-view">${ post.view_num }</div>
-                                        <div><img src="Public/Images/homepage/icon-heart.png" alt="icon-like">${ post.like_num }</div>
+                                        <div><img src="/images/homepage/icon-view.png" alt="icon-view">${ post.view_num }</div>
+                                        <div><img src="/images/homepage/icon-heart.png" alt="icon-like">${ post.like_num }</div>
                                     </div>
                                 </div>
                                 <div class="post-content f-regular-13">

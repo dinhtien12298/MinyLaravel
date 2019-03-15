@@ -1,0 +1,144 @@
+/* Banner */
+
+#banner {
+  background-image: url(/images/banner.png?b7287e545e9a10378b035eba51dd9e71);
+}
+
+/* Content */
+
+.content {
+  padding: 45px 0 35px 0;
+}
+
+/* Side Bar */
+
+.side-bar {
+  width: 26.5%;
+  padding-top: 47px;
+}
+
+.content-post {
+  width: 73.5%;
+  padding-right: 3%;
+}
+
+.content-post .list-post {
+  margin-bottom: 25px;
+}
+
+.basic .tab-post .post-model:last-child {
+  opacity: 0.5;
+}
+
+.basic .tab-post .post-model:first-child {
+  opacity: 1;
+}
+
+.content-post .view-more {
+  text-align: center;
+}
+
+.content-post .view-more button {
+  outline: none;
+  color: #26af92;
+  background: none;
+  border: #26af92 solid 2px;
+  border-radius: 7px;
+  padding: 6px 17px;
+  -webkit-transition: 0.1s ease-in-out;
+  transition: 0.1s ease-in-out;
+}
+
+.content-post .view-more button:hover {
+  color: #ffffff;
+  background: #26af92;
+  cursor: pointer;
+}
+
+/* Pagination */
+
+.page-button {
+  text-align: center;
+  width: 70.5%;
+}
+
+.page-button button {
+  background: #ffffff;
+  padding: 8px 12.5px;
+  border: none;
+  border-radius: 50%;
+  color: #999999;
+  margin-right: 3px;
+  outline: none;
+}
+
+.page-button button:hover {
+  background: #ff9900;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.page-button .etc:first-child {
+  margin-left: 30px;
+}
+
+.page-button .etc {
+  background: #999999;
+  border-radius: 50%;
+  border: #999999 solid 1px;
+  width: 4px;
+  height: 4px;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.active-pagination-button {
+  background: #ff9900 !important;
+  color: #ffffff !important;
+}
+
+@media screen and (max-width: 768px) {
+  header,
+  .side-bar {
+    display: none;
+  }
+
+  #banner {
+    background-image: url(/images/banner-mobile.png?deb574f3b1b967f321cba8842ff3af2a);
+    height: 99px;
+  }
+
+  #banner .breadcrumb {
+    padding-top: 7px;
+    padding-left: 3%;
+    padding-right: 3%;
+    font-size: 11px;
+  }
+
+  #banner .banner-heading {
+    padding-top: 30px;
+    font-size: 20px;
+  }
+
+  .content {
+    padding-top: 30px;
+  }
+
+  .content-post {
+    width: 100%;
+    padding-right: 0;
+  }
+
+  .content .container {
+    padding: 0 3%;
+  }
+
+  .post-model .post-heading .post-info div:first-child {
+    margin-right: -55%;
+  }
+
+  .page-button {
+    width: 100%;
+  }
+}
+

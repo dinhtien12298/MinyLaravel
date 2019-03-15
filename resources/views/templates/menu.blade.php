@@ -1,29 +1,27 @@
-@extends('templates/screen)
-@section('menu')
 <!-- START HEADER -->
 <header id="header" class="search">
     <div class="container">
         <!-- Logo + Menu -->
         <div class="header-container-1">
             <div class="logo">
-                <a href="/"><img src="resources/assets/images/all/logo.png" alt=""></a>
+                <a href="/"><img src="images/all/logo.png" alt=""></a>
             </div>
             <div class="user f-regular-16">
-                <?php if (!isset($_SESSION['username'])) {?>
-                    <button class="login-button" onclick="directTo('/index.php?controller=userAction&action=getSignup')">
+                @if (!isset($_SESSION['username']))
+                    <button class="login-button" onclick="directTo('/dang-nhap')">
                         Đăng ký
                     </button>
-                    <button class="login-button" onclick="directTo('/index.php?controller=userAction&action=getLogin')">
+                    <button class="login-button" onclick="directTo('/dang-ky')">
                         Đăng nhập
                     </button>
-                <?php } else { ?>
-                    <button id="user-homepage" onclick="directTo('/index.php?controller=userHome&action=information')">
+                @else
+                    <button id="user-homepage" onclick="directTo('/trang-ca-nhan/information')">
                         Trang cá nhân
                     </button>
                     <button id="logout-button" onclick="logOut()">
                         Đăng xuất
                     </button>
-                <?php } ?>
+                @endif
             </div>
         </div>
         <!-- Search -->
@@ -44,35 +42,35 @@
 <nav id="nav">
     <div class="nav-mobile-container">
         <div class="logo">
-            <a class="d-none" href=""><img src="resources/assets/images/all/logo.png" alt=""></a>
+            <a class="d-none" href=""><img src="images/all/logo.png" alt=""></a>
             <i id="close-nav-mobile" class="d-none fas fa-arrow-left" onclick="isHidden()"></i>
         </div>
         <div class="d-none menu-name">
             <p>Danh mục</p>
         </div>
         <div class="container d-flex f-medium-15">
-            @foreach(array_reverse($all_classes) as $class)
-                $index = array_search($class, $all_classes); ?>
+            @foreach($all_classes as $class)
+                @php $index = array_search($class, $all_classes) @endphp
                 <div class="sub-menu" onmousemove="menuAppear()" onmouseout="menuDisappear()">
                     <div class="sub-title">
-                        <a href="/index.php?controller=category&action=basic&class={{ $class->class }}">{{ $class->class }}</a>
+                        <a href="/danh-muc/{{ $class->class }}">{{ $class->class }}</a>
                         <i class="icon-down icon-plus d-none fas fa-plus"></i>
                         <i class="icon-down icon-minus d-none fas fa-minus"></i>
                     </div>
                     @if ( !empty($data_menu[$index]) && sizeof($data_menu[$index]) != 0 )
                         <div class="subject f-regular-13">
                             <div class="subject-column1">
-                                @for ($i = 0; $i < sizeof($data_menu[$index]) - intval(sizeof($data_menu[$index]) / 2); $i++)
-                                    <div class="menu-item" onclick="directTo('/index.php?controller=category&action=detail&class={{ $class->class }}&subject={{ $data_menu[$index][$i]->subject }}&page=1')"><a href="/index.php?controller=category&action=detail&class={{ $class->class }}&subject={{ $data_menu[$index][$i]->subject }}&page=1">{{ $data_menu[$index][$i]->subject }}</a></div>
-                                @endfor
+                                @foreach($data_menu[$index][0] as $menu_element)
+                                    <div class="menu-item" onclick="directTo('/danh-muc/{{ $class->class }}/{{ $menu_element->subject }}/1')"><a href="/danh-muc/{{ $class->class }}/{{ $menu_element->subject }}/1">{{ $menu_element->subject }}</a></div>
+                                @endforeach
                             </div>
                             <div class="subject-column2">
-                                @for ($i = intval(sizeof($data_menu[$index]) / 2) + 1; $i < sizeof($data_menu[$index]); $i++)
-                                    <div class="menu-item" onclick="directTo('/index.php?controller=category&action=detail&class={{ $class->class }}&subject={{ $data_menu[$index][$i]->subject  }}&page=1')"><a href="/index.php?controller=category&action=detail&class={{ $class->class }}&subject={{ $data_menu[$index][$i]->subject }}&page=1">{{ $data_menu[$index][$i]->subject }}</a></div>
-                                @endfor
+                                @foreach($data_menu[$index][1] as $menu_element)
+                                    <div class="menu-item" onclick="directTo('/danh-muc/{{ $class->class }}/{{ $menu_element->subject }}/1')"><a href="/danh-muc/{{ $class->class }}/{{ $menu_element->subject }}/1">{{ $menu_element->subject }}</a></div>
+                                @endforeach
                             </div>
                             <div class="subject-column3">
-                                <img src="resources/assets/images/all/{{ $class_images[$index][1] }}.png" alt="menu{{ $class_images[$index][1] }}">
+                                <img src="images/all/{{ $class_images[$index][1] }}.png" alt="menu{{ $class_images[$index][1] }}">
                             </div>
                         </div>
                     @endif
@@ -82,4 +80,3 @@
     </div>
 </nav>
 <!-- END NAVIGATION -->
-@stop

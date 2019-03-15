@@ -12,4 +12,12 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+    .js('resources/assets/js/homepage.js', 'public/js')
+    .js('resources/assets/js/category.js', 'public/js')
+    .js('resources/assets/js/common.js', 'public/js')
+    .js('resources/assets/js/userHome.js', 'public/js')
+    .sass('resources/assets/sass/category.scss', 'public/css')
+    .sass('resources/assets/sass/common.scss', 'public/css')
+    .sass('resources/assets/sass/detail.scss', 'public/css')
+    .sass('resources/assets/sass/homepage.scss', 'public/css')
+    .sass('resources/assets/sass/userHome.scss', 'public/css');

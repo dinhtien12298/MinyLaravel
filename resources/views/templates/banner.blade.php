@@ -1,5 +1,3 @@
-@extends('templates/screen')
-@section('banner')
 @if (isset($banner_title))
     <div id="banner">
         <div class="container">
@@ -17,4 +15,3 @@
 @else
     <div id="banner-hp"></div>
 @endif
-@stop

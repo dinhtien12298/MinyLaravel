@@ -1,11 +1,10 @@
 @extends('templates/screen')
-@section('main');
-@php extract($data) @endphp
+@section('main')
 <!-- START CONTENT -->
 <div class="content">
     <div class="container">
         @foreach($list_classes as $class_name)
-            @php $index = array_search($class_name, $list_classes); @endphp
+            @php $index = array_search($class_name, $list_classes) @endphp
             @if (sizeof($data_content[$index]) != 0)
                 <div class="tab-heading">
                     <div class="tab-title f-regular-30">
@@ -19,7 +18,7 @@
                         </div>
                     @endif
                     <div class="view-all">
-                        <a class="view-all-tag f-regular-13" onclick="directTo('/index.php?controller=category&action=basic&class={{ $class_name }}&page=1')">
+                        <a class="view-all-tag f-regular-13" onclick="directTo('/danh-muc/{{ $class_name }}')">
                         Xem tất cả
                         <i class="fas fa-caret-right"></i>
                         </a>
@@ -28,17 +27,17 @@
                 <div class="line-orange"></div>
                 <div class="tab-post">
                     @for ($i = 0; $i < sizeof($data_content[$index]); $i++)
-                        <div class="post-model" onclick="directTo('/index.php?controller=post&action=detail&post={{ $data_content[$index][$i]->id }}')">
+                        <div class="post-model" onclick="directTo('/bai-viet/{{ $data_content[$index][$i]->id }}')">
                             <div class="post-title">
-                                <a href="/index.php?controller=post&action=detail&post={{ $data_content[$index][$i]->id }}" class="f-medium-17">{{ $data_content[$index][$i]->title }}</a>
+                                <a href="/bai-viet/{{ $data_content[$index][$i]->id }}" class="f-medium-17">{{ $data_content[$index][$i]->title }}</a>
                             </div>
                             <div class="post-heading d-flex">
                                 <div class="post-author f-medium-12">
                                     {{ $data_content[$index][$i]->fullname }}
                                 </div>
                                 <div class="post-info f-regular-13">
-                                    <div><img src="Public/Images/homepage/icon-view.png" alt="icon-view">{{ $data_content[$index][$i]->view_num }}</div>
-                                    <div><img src="Public/Images/homepage/icon-heart.png" alt="icon-like">{{ $data_content[$index][$i]->like_num }}</div>
+                                    <div><img src="images/homepage/icon-view.png" alt="icon-view">{{ $data_content[$index][$i]->view_num }}</div>
+                                    <div><img src="images/homepage/icon-heart.png" alt="icon-like">{{ $data_content[$index][$i]->like_num }}</div>
                                 </div>
                             </div>
                             <div class="post-content f-regular-13">
@@ -62,7 +61,7 @@
         <div id="service-info" class="d-flex">
             <div class="service-1" style="width: 29%">
                 <div class="service-icon">
-                    <img src="Public/Images/homepage/icon-file.png" alt="icon-file">
+                    <img src="images/homepage/icon-file.png" alt="icon-file">
                 </div>
                 <div class="service-content">
                     <div class="content-heading f-regular-20">Tài nguyên học tập miễn phí</div>
@@ -71,7 +70,7 @@
             </div>
             <div class="service-2" style="width: 44%">
                 <div class="service-icon">
-                    <img src="Public/Images/homepage/icon-download.png" alt="icon-download">
+                    <img src="images/homepage/icon-download.png" alt="icon-download">
                 </div>
                 <div class="service-content" style="padding: 0px 65px">
                     <div class="content-heading f-regular-20">Nội dung cập nhật liên tục</div>
@@ -80,7 +79,7 @@
             </div>
             <div class="service-3" style="width: 27%">
                 <div class="service-icon">
-                    <img src="Public/Images/homepage/icon-pc.png" alt="icon-pc">
+                    <img src="images/homepage/icon-pc.png" alt="icon-pc">
                 </div>
                 <div class="service-content">
                     <div class="content-heading f-regular-20">Giao diện thân thiện</div>
@@ -92,4 +91,4 @@
 </div>
 <!-- END SERVICE -->
 
-@stop
+@endsection

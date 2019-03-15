@@ -23,8 +23,8 @@
                                         {{ $data_content[$i]->fullname }}
                                     </div>
                                     <div class="post-info f-regular-13">
-                                        <div><img src="Public/Images/homepage/icon-view.png" alt="icon-view">{{ $data_content[$i]->view_num }}</div>
-                                        <div><img src="Public/Images/homepage/icon-heart.png" alt="icon-like">{{ $data_content[$i]->like_num }}</div>
+                                        <div><img src="images/homepage/icon-view.png" alt="icon-view">{{ $data_content[$i]->view_num }}</div>
+                                        <div><img src="images/homepage/icon-heart.png" alt="icon-like">{{ $data_content[$i]->like_num }}</div>
                                     </div>
                                 </div>
                                 <div class="post-content f-regular-13">

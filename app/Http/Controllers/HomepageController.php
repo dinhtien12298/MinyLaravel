@@ -24,6 +24,7 @@ class HomepageController extends Controller
         $data['list_buttons'] = $this->getSubjectData();
         $data['data_content'] = $this->getPostData($data['list_buttons']);
         $data['page'] = 'homepage';
+        $data['list_classes'] = $this->list_classes;
         return view('homepage', $data);
     }
 
@@ -46,19 +47,21 @@ class HomepageController extends Controller
             if ($class_name == "Mới nhất") {
                 $data_content[$index] = DB::table('posts')
                     ->join('users', 'users.id', '=', 'posts.user_id')
-                    ->select('id', 'title', 'view_num', 'like_num', 'content', 'users.fullname')
-                    ->limit(6);
+                    ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'users.fullname')
+                    ->limit(6)
+                    ->get();
             } else {
                 $subject = $list_buttons[$index][0]->subject;
                 $data_content[$index] = DB::table('posts')
                     ->join('users', 'users.id', '=', 'posts.user_id')
-                    ->join('subject', 'subjects.id', '=', 'posts.subject_id')
-                    ->select('id', 'title', 'view_num', 'like_num', 'content', 'users.fullname', 'subjects.class', 'subjects.subject')
+                    ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
+                    ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'users.fullname', 'subjects.class', 'subjects.subject')
                     ->where([
                         ['subjects.class', '=', "$class_name"],
                         ['subjects.subject', '=', "$subject"],
                     ])
-                    ->limit(6);
+                    ->limit(6)
+                    ->get();
             }
         }
         return $data_content;

@@ -105,13 +105,13 @@ var breadcrumbTags = document.getElementsByClassName('breadcrumb-tag');
 for (let i = 0; i < breadcrumbTags.length; i++) {
     breadcrumbTags[i].onclick = function() {
         if (i == 0) {
-            window.location.href = `/index.php`;
+            window.location.href = `/`;
         }
         else if (i == 1) {
-            window.location.href = `/index.php?controller=category&action=basic&class=${breadcrumbTags[1].innerHTML}`;
+            window.location.href = `/danh-muc/${breadcrumbTags[1].innerHTML}`;
         }
         else if (i == 2) {
-            window.location.href = `/index.php?controller=category&action=detail&class=${breadcrumbTags[1].innerHTML}&subject=${breadcrumbTags[2].innerHTML}&page=1`;
+            window.location.href = `/danh-muc/${breadcrumbTags[1].innerHTML}/${breadcrumbTags[2].innerHTML}/1`;
         }
     }
 }
@@ -129,7 +129,7 @@ if (document.getElementById('search')) {
             if (response.data && response.data.length > 0) {
                 var posts = response.data;
                 var postHTML = posts.map(
-                    post => `<a class="found-post" data-postId="${ post['id'] }" onclick="directTo('/index.php?controller=post$action=detail&post=${ post['id'] }')"><p>${ post['title'] }</p></a>`
+                    post => `<a class="found-post" data-postId="${ post['id'] }" onclick="directTo('/bai-viet/${ post['id'] }')"><p>${ post['title'] }</p></a>`
                 );
                 searchContent.innerHTML = `${postHTML.join("")}`;
             }
@@ -149,6 +149,6 @@ function directTo(place) {
 function logOut() {
     var confirmCheck = confirm('Bạn có chắc chắn muốn đăng xuất?');
     if (confirmCheck) {
-        window.location.href = 'index.php?controller=userAction&action=logout';
+        window.location.href = '/dang-xuat';
     }
 }
