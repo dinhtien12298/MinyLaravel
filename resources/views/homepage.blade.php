@@ -18,7 +18,7 @@
                         </div>
                     @endif
                     <div class="view-all">
-                        <a class="view-all-tag f-regular-13" onclick="directTo('/danh-muc/{{ $class_name }}')">
+                        <a class="view-all-tag f-regular-13" onclick="directTo('/danh-muc/{{ $class_name }}/1')">
                         Xem tất cả
                         <i class="fas fa-caret-right"></i>
                         </a>

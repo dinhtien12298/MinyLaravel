@@ -10,16 +10,16 @@ class CategoryController extends Controller
     protected $class;
     protected $subject;
     protected $page;
-    public function category($class, $subject, $page)
+    public function category($class, $subject = null, $page = null)
     {
         $this->class = $class;
-        $this->subject = isset($subject) ? $subject : '';
-        $this->page = isset($page) ? $page : '';
+        $this->subject = $subject;
+        $this->page = $page;
 
-        if ($subject != '') {
-            $this->detail();
+        if ($page != null) {
+            return $this->detail();
         } else {
-            $this->basic();
+            return $this->basic();
         }
     }
 
@@ -28,34 +28,37 @@ class CategoryController extends Controller
         if ($this->class == 'Mới nhất') {
             $this->detail();
         } else {
-            $data = $this->dataComponents();
+            $input['page'] = 'category';
+            $input['class'] = $this->class;
+            $data = $this->dataComponents($input);
             $all_subjects = $this->getSubjectBasicData();
             $data['data_content'] = $this->getPostBasicData($all_subjects);
             $data['page'] = 'category';
-            return view('basicCategory', $data);
+            return view('basic_category', $data);
         }
     }
 
     public function detail()
     {
-        $data = $this->dataComponents();
-        if (isset($data['subject']) || $this->class == 'Mới nhất') {
-            $page = $this->page;
-            $tab_title = ($this->class == 'Mới nhất') ? $this->class : $this->subject;
-            $data['tab_title'] = $tab_title;
-            $data['data_content'] = $this->getPostDetailData($page)['data_content'];
-            $data['page_button'] = $this->getPostDetailData($page)['page_button'];
-            $data['continue'] = $this->getPostDetailData($page)['continue'];
-            $data['page'] = 'category';
-            $data['action'] = 'detailCategory';
-            return view('detailCategory', $data);
-        }
+        $input['page'] = 'category';
+        $input['class'] = $this->class;
+        $input['subject'] = $this->subject;
+        $data = $this->dataComponents($input);
+        $page = $this->page;
+        $tab_title = ($this->class == 'Mới nhất') ? $this->class : $this->subject;
+        $data['tab_title'] = $tab_title;
+        $data['data_content'] = $this->getPostDetailData($page)['data_content'];
+        $data['page_button'] = $this->getPostDetailData($page)['page_button'];
+        $data['continue'] = $this->getPostDetailData($page)['continue'];
+        $data['page'] = 'category';
+        $data['action'] = 'detailCategory';
+        return view('detail_category', $data);
     }
 
     private function getSubjectBasicData()
     {
         $class = $this->class;
-        $all_subjects = DB::table('subject')->select('id', 'subject', 'class')->where('class', "$class");
+        $all_subjects = DB::table('subjects')->where('class', "$class")->get()->toArray();
         return $all_subjects;
     }
 
@@ -67,7 +70,7 @@ class CategoryController extends Controller
             $data_content[$index] = DB::table('posts')
                 ->join('users', 'users.id', '=', 'posts.user_id')
                 ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
-                ->select('id', 'title', 'view_num', 'like_num', 'content', 'users.fullname', 'subjects.class', 'subjects.subject')
+                ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'users.fullname', 'subjects.class', 'subjects.subject')
                 ->where('subjects.id', '=', $subject->id)
                 ->limit(3)
                 ->get();
@@ -81,19 +84,19 @@ class CategoryController extends Controller
         if ($this->class == 'Mới nhất') {
             $data_content = DB::table('posts')
                 ->join('users', 'users.id', '=', 'posts.user_id')
-                ->select('id', 'title', 'view_num', 'like_num', 'content', 'users.fullname')
+                ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'users.fullname')
                 ->skip($start_number)
                 ->take(9)
                 ->get();
             $number_of_records = 27;
         } else {
-            $subject_id = DB::table('subjects')->select('id', 'subject', 'class')->where([
+            $subject_id = DB::table('subjects')->where([
                 ['subject', "$this->subject"],
                 ['class', "$this->class"],
-            ])->id;
+            ])->first()->id;
             $data_content = DB::table('posts')
                 ->join('users', 'users.id', '=', 'posts.user_id')
-                ->select('id', 'title', 'view_num', 'like_num', 'content', 'users.fullname')
+                ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'users.fullname')
                 ->where('subject_id', $subject_id)
                 ->skip($start_number)
                 ->take(9)
