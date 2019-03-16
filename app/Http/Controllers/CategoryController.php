@@ -54,14 +54,14 @@ class CategoryController extends Controller
         return view('detail_category', $data);
     }
 
-    private function getSubjectBasicData()
+    public function getSubjectBasicData()
     {
         $class = $this->class;
         $all_subjects = DB::table('subjects')->where('class', "$class")->get()->toArray();
         return $all_subjects;
     }
 
-    private function getPostBasicData($all_subjects)
+    public function getPostBasicData($all_subjects)
     {
         $data_content = [];
         foreach ($all_subjects as $subject) {
@@ -77,7 +77,7 @@ class CategoryController extends Controller
         return $data_content;
     }
 
-    private function getPostDetailData($page)
+    public function getPostDetailData($page)
     {
         $start_number = 9 * ($page - 1);
         if ($this->class == 'Mới nhất') {

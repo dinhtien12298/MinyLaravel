@@ -27,7 +27,7 @@ class HomepageController extends Controller
         return view('homepage', $data);
     }
 
-    private function getSubjectData()
+    public function getSubjectData()
     {
         $list_buttons = [];
         foreach ($this->list_classes as $class) {
@@ -37,7 +37,7 @@ class HomepageController extends Controller
         return $list_buttons;
     }
 
-    private function getPostData($list_buttons)
+    public function getPostData($list_buttons)
     {
         $data_content = [];
         foreach ($this->list_classes as $class_name) {
