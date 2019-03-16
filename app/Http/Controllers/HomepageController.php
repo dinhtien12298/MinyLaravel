@@ -23,7 +23,6 @@ class HomepageController extends Controller
         $data = $this->dataComponents($input);
         $data['list_buttons'] = $this->getSubjectData();
         $data['data_content'] = $this->getPostData($data['list_buttons']);
-        $data['page'] = 'homepage';
         $data['list_classes'] = $this->list_classes;
         return view('homepage', $data);
     }

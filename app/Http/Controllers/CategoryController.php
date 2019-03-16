@@ -33,7 +33,6 @@ class CategoryController extends Controller
             $data = $this->dataComponents($input);
             $all_subjects = $this->getSubjectBasicData();
             $data['data_content'] = $this->getPostBasicData($all_subjects);
-            $data['page'] = 'category';
             return view('basic_category', $data);
         }
     }
@@ -46,12 +45,12 @@ class CategoryController extends Controller
         $data = $this->dataComponents($input);
         $page = $this->page;
         $tab_title = ($this->class == 'Mới nhất') ? $this->class : $this->subject;
+        $data['class'] = $input['class'];
+        $data['subject'] = $input['subject'];
         $data['tab_title'] = $tab_title;
         $data['data_content'] = $this->getPostDetailData($page)['data_content'];
         $data['page_button'] = $this->getPostDetailData($page)['page_button'];
         $data['continue'] = $this->getPostDetailData($page)['continue'];
-        $data['page'] = 'category';
-        $data['action'] = 'detailCategory';
         return view('detail_category', $data);
     }
 
@@ -101,7 +100,7 @@ class CategoryController extends Controller
                 ->skip($start_number)
                 ->take(9)
                 ->get();
-            $number_of_records = DB::table('posts')->where('subject_id', $subject_id)->skip($start_number)->take(28);
+            $number_of_records = DB::table('posts')->where('subject_id', $subject_id)->skip($start_number)->take(28)->count();
         }
         $data['page_button'] = $this->calculatePageNumber($page, $number_of_records)['page_number'];
         $data['data_content'] = $data_content;

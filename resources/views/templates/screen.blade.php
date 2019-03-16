@@ -5,14 +5,12 @@
     <!-- Import Icon -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <!-- Link CSS -->
-    <link rel="stylesheet" href="css/common.css">
-    @if (file_exists("css/$page.css"))
-        <link rel="stylesheet" href="css/{{ $page }}.css">
-    @endif
+    <link rel="stylesheet" href="{{ asset('css/common.css') }}">
+    @yield('css')
     <!-- Import CKEDITOR -->
     <script src="https://cdn.ckeditor.com/4.11.2/standard/ckeditor.js"></script>
     <!-- Import WebLogo -->
-    <link rel="icon" href="images/all/logo-web.png">
+    <link rel="icon" href="{{ asset('images/all/logo-web.png') }}">
     <title>Miny</title>
 </head>
 <body>
@@ -36,7 +34,7 @@
     @yield('main')
     @include('templates/footer')
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="js/common.js"></script>
+    <script src="{{ asset('js/common.js') }}"></script>
     <div id="fb-root"></div>
     <script>
         (function (d, s, id) {
@@ -47,8 +45,6 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
-    @if (file_exists("js/$page.js"))
-        <script src="js/{{ $page }}.js"></script>
-    @endif
+    @yield('js')
 </body>
 </html>

@@ -1,4 +1,8 @@
 @extends('templates/screen')
+@section('css')
+    <link rel="stylesheet" href="{{ asset("css/category.css") }}">
+@endsection
+
 @section('main')
 <div class="content">
     <div class="container">
@@ -31,8 +35,8 @@
                                                 {{ $list_posts[$i]->fullname }}
                                             </div>
                                             <div class="post-info f-regular-13">
-                                                <div><img src="images/homepage/icon-view.png" alt="icon-view">{{ $list_posts[$i]->view_num }}</div>
-                                                <div><img src="images/homepage/icon-heart.png" alt="icon-like">{{ $list_posts[$i]->like_num }}</div>
+                                                <div><img src="{{ asset('images/homepage/icon-view.png') }}" alt="icon-view">{{ $list_posts[$i]->view_num }}</div>
+                                                <div><img src="{{ asset('images/homepage/icon-heart.png') }}" alt="icon-like">{{ $list_posts[$i]->like_num }}</div>
                                             </div>
                                         </div>
                                         <div class="post-content f-regular-13">
@@ -51,9 +55,13 @@
             <!-- END MAIN CONTENT -->
 
             <!-- START SIDEBAR -->
-            @yield('sidebar')
+            @include('templates/sidebar')
             <!-- END SIDEBAR -->
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+    <script src="{{ asset("js/category.js") }}"></script>
 @endsection

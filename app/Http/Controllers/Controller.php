@@ -66,11 +66,12 @@ class Controller extends BaseController
             $data['breadcrumb'] = $this->breadcrumb($input);
             $data['banner_title'] = "$class - GIẢI BÀI TẬP $class";
         } elseif ($post_id != '') {
-            $input['post_id'] = $post_id;
             $post = DB::table('posts')
+                ->where('posts.id', '=', "$post_id")
                 ->join('subjects', 'posts.subject_id', '=', 'subjects.id')
                 ->select('title', 'subjects.subject', 'subjects.class')
-                ->get();
+                ->first();
+            $input['post'] = $post;
             $subject = $post->subject;
             $title = $post->title;
             $data['breadcrumb'] = $this->breadcrumb($input);
@@ -86,7 +87,7 @@ class Controller extends BaseController
         if ($post_id != '') {
             $subject_id = DB::table('posts')->where('id', $post_id)->first()->subject_id;
             $data_related = DB::table('posts')->select('id', 'title')->where([
-                ['subject_id', $subject_id],
+                ['subject_id', '=', $subject_id],
                 ['id', '!=', $post_id],
             ])->limit(8)->get();
             $data['all_ads'] = $all_ads;

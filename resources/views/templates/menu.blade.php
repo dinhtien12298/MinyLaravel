@@ -4,7 +4,7 @@
         <!-- Logo + Menu -->
         <div class="header-container-1">
             <div class="logo">
-                <a href="/"><img src="images/all/logo.png" alt=""></a>
+                <a href="/"><img src="{{ asset('images/all/logo.png') }}" alt=""></a>
             </div>
             <div class="user f-regular-16">
                 @if (!isset($_SESSION['username']))
@@ -42,7 +42,7 @@
 <nav id="nav">
     <div class="nav-mobile-container">
         <div class="logo">
-            <a class="d-none" href=""><img src="images/all/logo.png" alt=""></a>
+            <a class="d-none" href=""><img src="{{ asset('images/all/logo.png') }}" alt=""></a>
             <i id="close-nav-mobile" class="d-none fas fa-arrow-left" onclick="isHidden()"></i>
         </div>
         <div class="d-none menu-name">
@@ -70,7 +70,8 @@
                                 @endforeach
                             </div>
                             <div class="subject-column3">
-                                <img src="images/all/{{ $class_images[$index][1] }}.png" alt="menu{{ $class_images[$index][1] }}">
+                                @php $image_name = $class_images[$index][1] @endphp
+                                <img src="{{ asset("images/all/$image_name.png") }}" alt="menu{{ $image_name }}">
                             </div>
                         </div>
                     @endif

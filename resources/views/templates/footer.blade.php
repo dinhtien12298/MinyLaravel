@@ -1,7 +1,7 @@
 <footer>
     <div class="container">
         <div class="logo">
-            <a href="/"><img src="/images/all/logo.png" alt="logo"></a>
+            <a href="/"><img src="{{ asset('images/all/logo.png') }}" alt="logo"></a>
         </div>
         <div class="menu f-regular-14">
             @if (isset($data_footer) && sizeof($data_footer) > 0)

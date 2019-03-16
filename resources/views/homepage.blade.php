@@ -1,4 +1,8 @@
 @extends('templates/screen')
+@section('css')
+    <link rel="stylesheet" href="{{ asset("css/homepage.css") }}">
+@endsection
+
 @section('main')
 <!-- START CONTENT -->
 <div class="content">
@@ -36,8 +40,8 @@
                                     {{ $data_content[$index][$i]->fullname }}
                                 </div>
                                 <div class="post-info f-regular-13">
-                                    <div><img src="images/homepage/icon-view.png" alt="icon-view">{{ $data_content[$index][$i]->view_num }}</div>
-                                    <div><img src="images/homepage/icon-heart.png" alt="icon-like">{{ $data_content[$index][$i]->like_num }}</div>
+                                    <div><img src="{{ asset('images/homepage/icon-view.png') }}" alt="icon-view">{{ $data_content[$index][$i]->view_num }}</div>
+                                    <div><img src="{{ asset('images/homepage/icon-heart.png') }}" alt="icon-like">{{ $data_content[$index][$i]->like_num }}</div>
                                 </div>
                             </div>
                             <div class="post-content f-regular-13">
@@ -61,7 +65,7 @@
         <div id="service-info" class="d-flex">
             <div class="service-1" style="width: 29%">
                 <div class="service-icon">
-                    <img src="images/homepage/icon-file.png" alt="icon-file">
+                    <img src="{{ asset('images/homepage/icon-file.png') }}" alt="icon-file">
                 </div>
                 <div class="service-content">
                     <div class="content-heading f-regular-20">Tài nguyên học tập miễn phí</div>
@@ -70,7 +74,7 @@
             </div>
             <div class="service-2" style="width: 44%">
                 <div class="service-icon">
-                    <img src="images/homepage/icon-download.png" alt="icon-download">
+                    <img src="{{ asset('images/homepage/icon-download.png') }}" alt="icon-download">
                 </div>
                 <div class="service-content" style="padding: 0px 65px">
                     <div class="content-heading f-regular-20">Nội dung cập nhật liên tục</div>
@@ -79,7 +83,7 @@
             </div>
             <div class="service-3" style="width: 27%">
                 <div class="service-icon">
-                    <img src="images/homepage/icon-pc.png" alt="icon-pc">
+                    <img src="{{ asset('images/homepage/icon-pc.png') }}" alt="icon-pc">
                 </div>
                 <div class="service-content">
                     <div class="content-heading f-regular-20">Giao diện thân thiện</div>
@@ -90,5 +94,8 @@
     </div>
 </div>
 <!-- END SERVICE -->
+@endsection
 
+@section('js')
+    <script src="{{ asset("js/homepage.js") }}"></script>
 @endsection

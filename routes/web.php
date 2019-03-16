@@ -14,3 +14,5 @@
 Route::get('/', 'HomepageController@homepage');
 
 Route::get('/danh-muc/{class?}/{subject?}/{page?}', 'CategoryController@category');
+
+Route::get('/bai-viet/{post_id}', 'DetailController@detail');

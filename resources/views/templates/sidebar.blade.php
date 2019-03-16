@@ -14,7 +14,8 @@
     @endif
     @if (isset($all_ads) && sizeof($all_ads) > 0 )
         @foreach ($all_ads as $ad)
-            <a href="{{ $ad->link }}"><img src="{{ $ad->image }}" alt="{{ $ad->title }}"></a>
+            @php $image_name = $ad->image @endphp
+            <a href="{{ $ad->link }}"><img src="{{ asset("$image_name") }}" alt="{{ $ad->title }}"></a>
         @endforeach
     @endif
 </div>
