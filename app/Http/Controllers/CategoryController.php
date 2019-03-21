@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use DB;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -26,13 +27,16 @@ class CategoryController extends Controller
     public function basic()
     {
         if ($this->class == 'Mới nhất') {
-            $this->detail();
+            return $this->detail();
         } else {
             $input['page'] = 'category';
             $input['class'] = $this->class;
             $data = $this->dataComponents($input);
             $all_subjects = $this->getSubjectBasicData();
             $data['data_content'] = $this->getPostBasicData($all_subjects);
+            if (Auth::check()) {
+                $data['userLogin'] = true;
+            }
             return view('basic_category', $data);
         }
     }
@@ -51,6 +55,9 @@ class CategoryController extends Controller
         $data['data_content'] = $this->getPostDetailData($page)['data_content'];
         $data['page_button'] = $this->getPostDetailData($page)['page_button'];
         $data['continue'] = $this->getPostDetailData($page)['continue'];
+        if (Auth::check()) {
+            $data['userLogin'] = true;
+        }
         return view('detail_category', $data);
     }
 

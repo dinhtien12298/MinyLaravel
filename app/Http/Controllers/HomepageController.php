@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PostModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use DB;
 
 class HomepageController extends Controller
@@ -24,6 +26,9 @@ class HomepageController extends Controller
         $data['list_buttons'] = $this->getSubjectData();
         $data['data_content'] = $this->getPostData($data['list_buttons']);
         $data['list_classes'] = $this->list_classes;
+        if (Auth::check()) {
+            $data['userLogin'] = true;
+        }
         return view('homepage', $data);
     }
 

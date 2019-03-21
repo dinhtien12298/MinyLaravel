@@ -121,10 +121,10 @@ if (document.getElementById('search')) {
     const searchBar = document.getElementById('search');
     var searchContent = document.getElementsByClassName('search-content')[0];
     searchBar.oninput = function () {
+        var keyword = (searchBar.value.length > 0) ? searchBar.value : '****';
         axios({
             method: 'GET',
-            url: "/App/Api/SearchPostApi.php",
-            params: { "keyword": searchBar.value }
+            url: `tim-kiem-bai-viet/${ keyword }`
         }).then(response => {
             if (response.data && response.data.length > 0) {
                 var posts = response.data;

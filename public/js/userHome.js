@@ -12,8 +12,7 @@ if (classInput) {
 function searchSubjectsOfClass(class_name) {
     axios({
         method: 'GET',
-        url: '/App/Api/SearchSubjectApi.php',
-        params : { "class": class_name }
+        url: `tim-chu-de/${ class_name }`
     }).then(response => {
         if (response.data && response.data.length > 0) {
             var data = response.data;
@@ -26,7 +25,9 @@ function searchSubjectsOfClass(class_name) {
 }
 
 // deletePostAPI
-function deletePost(post_id, index) {
+function deletePost(input) {
+    var post_id = input[0];
+    var index = input[1];
     var confirmCheck = confirm('Bạn có chắc chắn muốn xóa bài viết');
     if (confirmCheck) {
         var postTable = document.getElementsByTagName('table')[0];
@@ -34,8 +35,7 @@ function deletePost(post_id, index) {
         const removeContent = document.getElementsByTagName('tr')[index + 1].innerHTML;
         axios({
             method: 'GET',
-            url: '/App/Api/DeletePostApi.php',
-            params: { 'post_id': post_id }
+            url: `xoa-bai/${ post_id }`
         }).then(response => {
             if (response.data) {
                 postTable.innerHTML = saveContent.replace(removeContent, '');

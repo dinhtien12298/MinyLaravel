@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PostModel extends Model
+class SubjectModel extends Model
 {
-    protected $table = 'posts';
+    protected $table = 'subjects';
     public $timestamps = false;
 }

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdvertimentModel;
+use App\Models\PostModel;
+use App\Models\SubjectModel;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -21,7 +24,7 @@ class Controller extends BaseController
         $data['data_menu'] = $this->getMenu()['data_menu'];
         $data['class_images'] = $this->getMenu()['class_images'];
         $data['data_footer'] = $this->getFooter();
-        if ($input['page'] != 'homepage') {
+        if ($input['page'] != 'homepage' && $input['page'] != 'userHome') {
             $data['all_ads'] = $this->getSideBar($post_id)['all_ads'];
             $data['banner_title'] = $this->getBanner($class, $subject, $post_id)['banner_title'];
             $data['breadcrumb'] = $this->getBanner($class, $subject, $post_id)['breadcrumb'];
@@ -62,7 +65,9 @@ class Controller extends BaseController
         $data = [];
         if ($class != '') {
             $input['class'] = $class;
-            $input['subject'] = $subject;
+            if ($subject != '') {
+                $input['subject'] = $subject;
+            }
             $data['breadcrumb'] = $this->breadcrumb($input);
             $data['banner_title'] = "$class - GIẢI BÀI TẬP $class";
         } elseif ($post_id != '') {
@@ -83,7 +88,7 @@ class Controller extends BaseController
     public function getSideBar($post_id)
     {
         $data = [];
-        $all_ads = DB::table('advertiments')->get();
+        $all_ads = AdvertimentModel::all();
         if ($post_id != '') {
             $subject_id = DB::table('posts')->where('id', $post_id)->first()->subject_id;
             $data_related = DB::table('posts')->select('id', 'title')->where([
@@ -100,7 +105,7 @@ class Controller extends BaseController
 
     public function getFooter()
     {
-        $all_subjects = DB::table('subjects')->get();
+        $all_subjects = SubjectModel::all();
         $data_footer = [];
         $data_check_name = [];
         foreach ($all_subjects as $subject) {

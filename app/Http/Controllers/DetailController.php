@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use DB;
 
 class DetailController extends Controller
@@ -28,7 +29,9 @@ class DetailController extends Controller
                 ['posts.id', '!=', "$post_id"],
             ])
             ->limit(6)->get();
-
+        if (Auth::check()) {
+            $data['userLogin'] = true;
+        }
         return view('detail', $data);
     }
 }
