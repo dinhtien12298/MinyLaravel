@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PostModel;
+use App\Models\SubjectModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -37,7 +38,7 @@ class HomepageController extends Controller
         $list_buttons = [];
         foreach ($this->list_classes as $class) {
             $index = array_search($class, $this->list_classes);
-            $list_buttons[$index] = DB::table('subjects')->select('id', 'subject', 'class')->where('class', "$class")->limit(4)->get();
+            $list_buttons[$index] = SubjectModel::where('class', "$class")->limit(4)->get();
         }
         return $list_buttons;
     }
@@ -49,15 +50,13 @@ class HomepageController extends Controller
             $index = array_search($class_name, $this->list_classes);
             $data_content[$index] = [];
             if ($class_name == "Mới nhất") {
-                $data_content[$index] = DB::table('posts')
-                    ->join('users', 'users.id', '=', 'posts.user_id')
+                $data_content[$index] = PostModel::join('users', 'users.id', '=', 'posts.user_id')
                     ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'users.fullname')
                     ->limit(6)
                     ->get();
             } else {
                 $subject = $list_buttons[$index][0]->subject;
-                $data_content[$index] = DB::table('posts')
-                    ->join('users', 'users.id', '=', 'posts.user_id')
+                $data_content[$index] = PostModel::join('users', 'users.id', '=', 'posts.user_id')
                     ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
                     ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'users.fullname', 'subjects.class', 'subjects.subject')
                     ->where([

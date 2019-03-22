@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserModel;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -21,7 +23,7 @@ class AuthController extends Controller
         if (Auth::attempt(['username' => $username, 'password' => $password])) {
             return redirect('nguoi-dung/thong-tin-ca-nhan');
         } else {
-            $user = DB::table('users')->where('username', '=', "$username")->count();
+            $user = UserModel::where('username', "$username")->count();
             if ($user == 0) {
                 $error = 'Tên tài khoản không tồn tại!';
             } else {
@@ -61,28 +63,23 @@ class AuthController extends Controller
             $error = 'Số điện thoại đã được sử dụng!';
             return redirect("dang-ky/$error");
         } else {
-            $sign_up = DB::table('users')->insert([
-                'username' => "$username",
-                'fullname' => "$fullname",
-                'password' => bcrypt($password),
-                'birth' => "$birth",
-                'phone' => "$phone",
-                'email' => "$email",
-                'working' => "$working",
-            ]);
-            if (!$sign_up) {
-                $error = 'Đăng ký không thành công!';
-                return redirect("dang-ky/$error");
-            } else {
-                $error = 'Đăng ký thành công! Vui lòng đăng nhập!';
-                return redirect("dang-nhap/$error");
-            }
+            $new_user = new UserModel();
+            $new_user->username = $username;
+            $new_user->password = bcrypt($password);
+            $new_user->fullname = $fullname;
+            $new_user->birth = $birth;
+            $new_user->phone = $phone;
+            $new_user->email = $email;
+            $new_user->working = $working;
+            $new_user->save();
+            $error = 'Đăng ký thành công! Vui lòng đăng nhập!';
+            return redirect("dang-nhap/$error");
         }
     }
 
     public function checkUsername($username)
     {
-        $check = DB::table('users')->where('username', '=', "$username")->count();
+        $check = UserModel::where('username', "$username")->count();
         if ($check == 0) {
             return false;
         }
@@ -91,7 +88,7 @@ class AuthController extends Controller
 
     public function checkEmail($email)
     {
-        $check = DB::table('users')->where('email', '=', "$email")->count();
+        $check = UserModel::where('email', "$email")->count();
         if ($check == 0) {
             return false;
         }
@@ -100,7 +97,7 @@ class AuthController extends Controller
 
     public function checkPhone($phone)
     {
-        $check = DB::table('users')->where('phone', '=', "$phone")->count();
+        $check = UserModel::where('phone', "$phone")->count();
         if ($check == 0) {
             return false;
         }

@@ -9,4 +9,9 @@ class UserModel extends Authenticatable
 {
     protected $table = 'users';
     public $timestamps = false;
+
+    public function posts()
+    {
+        return $this->hasMany('App\Models\PostModel');
+    }
 }

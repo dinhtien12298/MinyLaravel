@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassModel;
+use App\Models\PostModel;
+use App\Models\SubjectModel;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -20,10 +24,9 @@ class UserController extends Controller
         $data = $this->dataComponents($input);
 
         $user_id = $this->user->id;
-        $all_posts = DB::table('posts')
-            ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
+        $all_posts = PostModel::join('subjects', 'subjects.id', '=', 'posts.subject_id')
             ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'class', 'subject')
-            ->where('user_id', '=', $user_id)
+            ->where('user_id', $user_id)
             ->get();
 
         $list_info['Tên tài khoản'] = $this->user->username;
@@ -79,17 +82,13 @@ class UserController extends Controller
         $email = $request['email'];
         $working = $request['working'];
 
-        $update = DB::table('users')->update([
-            'password' => bcrypt($password),
-            'phone' => "$phone",
-            'email' => "$email",
-            'working' => "$working"
-        ])->where('username', '=', "$username");
+        $user = UserModel::where('username', $username)->first();
+        $user->password = bcrypt($password);
+        $user->phone = $phone;
+        $user->email = $email;
+        $user->working = $working;
+        $user->save();
 
-        if (!$update) {
-            $error = 'Cập nhật thông tin thất bại!';
-            return redirect("/nguoi-dung/cap-nhat-thong-tin/$error");
-        }
         return redirect('/nguoi-dung/cap-nhat-thong-tin');
     }
 
@@ -102,7 +101,7 @@ class UserController extends Controller
         $data['all_posts'] = DB::table('posts')
             ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
             ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'class', 'subject')
-            ->where('user_id', '=', $user_id)
+            ->where('user_id', $user_id)
             ->get()->toArray();
 
         $data['page'] = 'postManagement';
@@ -123,7 +122,7 @@ class UserController extends Controller
             ->join('users', 'users.id', '=', 'posts.user_id')
             ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
             ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname', 'class', 'subject')
-            ->where('posts.id', '=', $post_id)
+            ->where('posts.id', $post_id)
             ->first();
         $data['all_classes'] = DB::table('classes')->get()->toArray();
 
@@ -135,11 +134,10 @@ class UserController extends Controller
 
     public function postEditPost($post_id, Request $request)
     {
-        $data['post_detail'] = DB::table('posts')
-            ->join('users', 'users.id', '=', 'posts.user_id')
+        $data['post_detail'] = PostModel::join('users', 'users.id', '=', 'posts.user_id')
             ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
             ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname', 'class', 'subject')
-            ->where('posts.id', '=', $post_id)
+            ->where('posts.id', $post_id)
             ->get();
 
         $title = $request['title'];
@@ -154,22 +152,18 @@ class UserController extends Controller
             $error = 'Bạn chưa có nội dung!';
             return redirect("/nguoi-dung/sua-bai-viet/$post_id/$error");
         } else {
-            $subject = DB::table('subjects')
-                ->where([
-                    ['subject', '=', "$subject"],
-                    ['class', '=', "$class"],
+            $subject = SubjectModel::where([
+                    ['subject', "$subject"],
+                    ['class', "$class"],
                 ])
                 ->first();
             $subject_id = $subject->id;
-            $update = DB::table('posts')->update([
-                'title' => "$title",
-                'content' => "$content",
-                'subject_id' => "$subject_id",
-            ])->where('id', '=', "$post_id");
-            if (!$update) {
-                $error = 'Cập nhật bài viết không thành công!';
-                return redirect("/nguoi-dung/sua-bai-viet/$post_id/$error");
-            }
+            $post = PostModel::find($post_id);
+            $post->title = $title;
+            $post->content = $content;
+            $post->subject_id = $subject_id;
+            $post->save();
+
             return redirect('/nguoi-dung/quan-ly-bai-viet');
         }
     }
@@ -205,23 +199,20 @@ class UserController extends Controller
             $error = 'Bạn chưa có nội dung!';
             return redirect("/nguoi-dung/dang-bai/$error");
         } else {
-            $subject = DB::table('subjects')
-                ->where([
-                    ['subject', '=', "$subject"],
-                    ['class', '=', "$class"],
+            $subject = SubjectModel::where([
+                    ['subject', "$subject"],
+                    ['class', "$class"],
                 ])
                 ->first();
             $subject_id = $subject->id;
-            $create = DB::table('posts')->insert([
-                'title' => "$title",
-                'content' => "$content",
-                'subject_id' => "$subject_id",
-                'user_id' => "$user_id",
-            ]);
-            if (!$create) {
-                $error = 'Đăng bài viết không thành công!';
-                return redirect("/nguoi-dung/dang-bai/$error");
-            }
+
+            $new_post = new PostModel();
+            $new_post->title = $title;
+            $new_post->content = $content;
+            $new_post->subject_id = $subject_id;
+            $new_post->user_id = $user_id;
+            $new_post->save();
+
             return redirect('/nguoi-dung/quan-ly-bai-viet');
         }
     }

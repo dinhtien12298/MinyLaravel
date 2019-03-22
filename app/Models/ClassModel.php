@@ -8,4 +8,9 @@ class ClassModel extends Model
 {
     protected $table = 'classes';
     public $timestamps = false;
+
+    public function subjects()
+    {
+        return $this->hasMany('App\Models\SubjectModel');
+    }
 }

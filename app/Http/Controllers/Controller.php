@@ -45,7 +45,7 @@ class Controller extends BaseController
             $data_menu[$index][0] = [];
             $data_menu[$index][1] = [];
             $class_name = $class->class;
-            $all_menu[$index] = DB::table('subjects')->select('id', 'subject', 'class')->where('class', "$class_name")->get();
+            $all_menu[$index] = SubjectModel::where('class', $class_name)->get();
             $class_images[$index] = explode(" ", $class_name);
             for ($i = 0; $i < sizeof($all_menu[$index]) - intval(sizeof($all_menu[$index]) / 2); $i++) {
                 array_push($data_menu[$index][0], $all_menu[$index][$i]);
@@ -71,11 +71,9 @@ class Controller extends BaseController
             $data['breadcrumb'] = $this->breadcrumb($input);
             $data['banner_title'] = "$class - GIẢI BÀI TẬP $class";
         } elseif ($post_id != '') {
-            $post = DB::table('posts')
-                ->where('posts.id', '=', "$post_id")
+            $post = PostModel::select('title', 'subject', 'class')
                 ->join('subjects', 'posts.subject_id', '=', 'subjects.id')
-                ->select('title', 'subjects.subject', 'subjects.class')
-                ->first();
+                ->find($post_id);
             $input['post'] = $post;
             $subject = $post->subject;
             $title = $post->title;
@@ -90,8 +88,8 @@ class Controller extends BaseController
         $data = [];
         $all_ads = AdvertimentModel::all();
         if ($post_id != '') {
-            $subject_id = DB::table('posts')->where('id', $post_id)->first()->subject_id;
-            $data_related = DB::table('posts')->select('id', 'title')->where([
+            $subject_id = PostModel::find($post_id)->subject_id;
+            $data_related = PostModel::select('id', 'title')->where([
                 ['subject_id', '=', $subject_id],
                 ['id', '!=', $post_id],
             ])->limit(8)->get();

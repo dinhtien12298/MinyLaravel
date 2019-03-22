@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\PostModel;
+use App\Models\SubjectModel;
 use DB;
 
 use Illuminate\Http\Request;
@@ -73,11 +75,10 @@ class CategoryController extends Controller
         $data_content = [];
         foreach ($all_subjects as $subject) {
             $index = array_search($subject, $all_subjects);
-            $data_content[$index] = DB::table('posts')
-                ->join('users', 'users.id', '=', 'posts.user_id')
+            $data_content[$index] = PostModel::join('users', 'users.id', '=', 'posts.user_id')
                 ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
                 ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'users.fullname', 'subjects.class', 'subjects.subject')
-                ->where('subjects.id', '=', $subject->id)
+                ->where('subjects.id', $subject->id)
                 ->limit(3)
                 ->get();
         }
@@ -88,26 +89,24 @@ class CategoryController extends Controller
     {
         $start_number = 9 * ($page - 1);
         if ($this->class == 'Mới nhất') {
-            $data_content = DB::table('posts')
-                ->join('users', 'users.id', '=', 'posts.user_id')
-                ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'users.fullname')
+            $data_content = PostModel::join('users', 'users.id', '=', 'posts.user_id')
+                ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname')
                 ->skip($start_number)
                 ->take(9)
                 ->get();
             $number_of_records = 27;
         } else {
-            $subject_id = DB::table('subjects')->where([
+            $subject_id = SubjectModel::where([
                 ['subject', "$this->subject"],
                 ['class', "$this->class"],
             ])->first()->id;
-            $data_content = DB::table('posts')
-                ->join('users', 'users.id', '=', 'posts.user_id')
+            $data_content = PostModel::join('users', 'users.id', '=', 'posts.user_id')
                 ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'users.fullname')
                 ->where('subject_id', $subject_id)
                 ->skip($start_number)
                 ->take(9)
                 ->get();
-            $number_of_records = DB::table('posts')->where('subject_id', $subject_id)->skip($start_number)->take(28)->count();
+            $number_of_records = PostModel::where('subject_id', $subject_id)->skip($start_number)->take(28)->count();
         }
         $data['page_button'] = $this->calculatePageNumber($page, $number_of_records)['page_number'];
         $data['data_content'] = $data_content;
