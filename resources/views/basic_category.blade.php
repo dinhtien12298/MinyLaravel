@@ -17,7 +17,7 @@
                                     {{ $list_posts[0]->subject }}
                                 </div>
                                 <div class="view-all">
-                                    <a class="f-regular-13" href="{{ url("/danh-muc/" . $list_posts[0]->class . "/" . $list_posts[0]->subject . "/1") }}">
+                                    <a class="f-regular-13" href="{{ route('category', ['class' => $list_posts[0]->class, 'subject' => $list_posts[0]->subject, 'page' => 1]) }}">
                                         Xem tất cả
                                         <i class="fas fa-caret-right"></i>
                                     </a>
@@ -28,7 +28,7 @@
                                 @for ($i = 0; $i < sizeof($list_posts); $i++)
                                     <div class="post-model" onclick="directTo('/bai-viet/{{ $list_posts[$i]->id }}')">
                                         <div class="post-title">
-                                            <a href="{{ url("/bai-viet/" . $list_posts[$i]->id) }}" class="f-medium-17">{{ $list_posts[$i]->title }}</a>
+                                            <a href="{{ route('detail', ['post_id' => $list_posts[$i]->id]) }}" class="f-medium-17">{{ $list_posts[$i]->title }}</a>
                                         </div>
                                         <div class="post-heading d-flex">
                                             <div class="post-author f-medium-12">
@@ -46,7 +46,7 @@
                                 @endfor
                             </div>
                             <div class="view-more">
-                                <a href="{{ url("/danh-muc/" . $list_posts[0]->class . "/" . $list_posts[0]->subject . "/1") }}"><button class="f-regular-13">Xem thêm</button></a>
+                                <a href="{{ route('category', ['class' => $list_posts[0]->class, 'subject' => $list_posts[0]->subject, 'page' => 1]) }}"><button class="f-regular-13">Xem thêm</button></a>
                             </div>
                         </div>
                     @endif

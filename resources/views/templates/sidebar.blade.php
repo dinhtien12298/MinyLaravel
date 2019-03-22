@@ -7,7 +7,7 @@
             <div class="line-orange"></div>
             <div class="related-content f-regular-14">
                 @for ($i = 0; $i < sizeof($data_related); $i++)
-                    <a href="{{ url("/bai-viet/" . $data_related[$i]->id) }}">{{ $data_related[$i]->title }}</a>
+                    <a href="{{ route('detail', ['post_id' => $data_related[$i]->id] ) }}">{{ $data_related[$i]->title }}</a>
                 @endfor
             </div>
         </div>

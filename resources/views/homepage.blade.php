@@ -33,7 +33,7 @@
                     @for ($i = 0; $i < sizeof($data_content[$index]); $i++)
                         <div class="post-model" onclick="directTo('/bai-viet/{{ $data_content[$index][$i]->id }}')">
                             <div class="post-title">
-                                <a href="{{ url("/bai-viet/" . $data_content[$index][$i]->id) }}" class="f-medium-17">{{ $data_content[$index][$i]->title }}</a>
+                                <a href="{{ route('detail', ['post_id' => $data_content[$index][$i]->id]) }}" class="f-medium-17">{{ $data_content[$index][$i]->title }}</a>
                             </div>
                             <div class="post-heading d-flex">
                                 <div class="post-author f-medium-12">

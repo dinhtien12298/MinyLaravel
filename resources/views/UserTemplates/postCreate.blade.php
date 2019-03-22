@@ -1,5 +1,6 @@
 <div id="post-create">
-    <form method="post" action="{{ url('/nguoi-dung/dang-bai') }}">
+    <form method="post" action="{{ route('user.postCreate') }}">
+        {{ csrf_field() }}
         <div class="post-banner">
             <h1 class="f-regular-25">Đăng bài viết</h1>
             <hr>

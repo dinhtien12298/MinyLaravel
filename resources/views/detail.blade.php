@@ -39,7 +39,7 @@
                         Có thể bạn quan tâm
                     </div>
                     <div class="view-all">
-                        <a class="f-regular-13" href="{{ url("/danh-muc/$post->class") }}">
+                        <a class="f-regular-13" href="{{ route('category', ['class' => $post->class]) }}">
                             Xem tất cả
                             <i class="fas fa-caret-right"></i>
                         </a>
@@ -50,7 +50,7 @@
                     @for ($i = 0; $i < sizeof($data_more_post); $i++)
                         <div class="post-model" onclick="directTo('/bai-viet/{{ $data_more_post[$i]->id }}')">
                             <div class="post-title">
-                                <a href="{{ url("/bai-viet/" . $data_more_post[$i]->id) }}" class="f-medium-17">{{ $data_more_post[$i]->title }}</a>
+                                <a href="{{ route('detail', ['post_id' => $data_more_post[$i]->id]) }}" class="f-medium-17">{{ $data_more_post[$i]->title }}</a>
                             </div>
                             <div class="post-heading d-flex">
                                 <div class="post-author f-medium-12">

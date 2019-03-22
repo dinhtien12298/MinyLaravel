@@ -124,8 +124,8 @@ class UserController extends Controller
             ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
             ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname', 'class', 'subject')
             ->where('posts.id', '=', $post_id)
-            ->get();
-        $data['all_classes'] = DB::table('classes')->get();
+            ->first();
+        $data['all_classes'] = DB::table('classes')->get()->toArray();
 
         $data['page'] = 'postUpdate';
         $data['userLogin'] = true;
@@ -182,7 +182,7 @@ class UserController extends Controller
         if ($error != null) {
             $data['error'] = $error;
         }
-        $data['all_classes'] = DB::table('classes')->get();
+        $data['all_classes'] = DB::table('classes')->get()->toArray();
 
         $data['page'] = 'postCreate';
         $data['userLogin'] = true;

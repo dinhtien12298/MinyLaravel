@@ -1,4 +1,4 @@
- <form id="user-infomation" method="POST" action="{{ url("/nguoi-dung/cap-nhat-thong-tin") }}">
+ <form id="user-infomation" method="POST" action="{{ route('user.update') }}">
      {{ csrf_field() }}
     <div class="user-infomation-content">
         <div class="info-element d-flex">

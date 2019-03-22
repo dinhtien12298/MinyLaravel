@@ -20,7 +20,7 @@
                         @for ($i = 0; $i < sizeof($data_content); $i++)
                             <div class="post-model" onclick="directTo('/bai-viet/{{ $data_content[$i]->id }}')">
                                 <div class="post-title">
-                                    <a href="{{ url("bai-viet/" . $data_content[$i]->id) }}" class="f-medium-17">{{ $data_content[$i]->title }}</a>
+                                    <a href="{{ route('detail', ['post_id' => $data_content[$i]->id]) }}" class="f-medium-17">{{ $data_content[$i]->title }}</a>
                                 </div>
                                 <div class="post-heading d-flex">
                                     <div class="post-author f-medium-12">
@@ -47,7 +47,7 @@
         </div>
         <div class="page-button">
             @for ($i = 0; $i < $page_button; $i++)
-                <a href="{{ url("/danh-muc/$class/$subject/" . ($i + 1)) }}"><button class="paginate-button f-regular-14">{{ $i + 1 }}</button></a>
+                <a href="{{ route('category', ['class' => $class, 'subject' => $subject, 'page' => $i + 1]) }}"><button class="paginate-button f-regular-14">{{ $i + 1 }}</button></a>
             @endfor
             @if ($continue)
                 <div class="etc"></div>

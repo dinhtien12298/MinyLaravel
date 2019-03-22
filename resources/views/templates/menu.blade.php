@@ -4,7 +4,7 @@
         <!-- Logo + Menu -->
         <div class="header-container-1">
             <div class="logo">
-                <a href="{{ url('/') }}"><img src="{{ asset('images/all/logo.png') }}" alt=""></a>
+                <a href="{{ route('homepage') }}"><img src="{{ asset('images/all/logo.png') }}" alt=""></a>
             </div>
             <div class="user f-regular-16">
                 @if (isset($userLogin) && $userLogin == true)
@@ -53,7 +53,7 @@
                 @php $index = array_search($class, $all_classes) @endphp
                 <div class="sub-menu" onmousemove="menuAppear()" onmouseout="menuDisappear()">
                     <div class="sub-title">
-                        <a href="{{ url("/danh-muc/$class->class") }}">{{ $class->class }}</a>
+                        <a href="{{ route('category', ['class' => $class->class]) }}">{{ $class->class }}</a>
                         <i class="icon-down icon-plus d-none fas fa-plus"></i>
                         <i class="icon-down icon-minus d-none fas fa-minus"></i>
                     </div>
@@ -61,12 +61,12 @@
                         <div class="subject f-regular-13">
                             <div class="subject-column1">
                                 @foreach($data_menu[$index][0] as $menu_element)
-                                    <div class="menu-item" onclick="directTo('/danh-muc/{{ $class->class }}/{{ $menu_element->subject }}/1')"><a href="{{ url("/danh-muc/$class->class/$menu_element->subject/1") }}">{{ $menu_element->subject }}</a></div>
+                                    <div class="menu-item" onclick="directTo('/danh-muc/{{ $class->class }}/{{ $menu_element->subject }}/1')"><a href="{{ route('category', ['class' => $class->class, 'subject' => $menu_element->subject, 'page' => 1]) }}">{{ $menu_element->subject }}</a></div>
                                 @endforeach
                             </div>
                             <div class="subject-column2">
                                 @foreach($data_menu[$index][1] as $menu_element)
-                                    <div class="menu-item" onclick="directTo('/danh-muc/{{ $class->class }}/{{ $menu_element->subject }}/1')"><a href="{{ url("/danh-muc/$class->class/$menu_element->subject/1") }}">{{ $menu_element->subject }}</a></div>
+                                    <div class="menu-item" onclick="directTo('/danh-muc/{{ $class->class }}/{{ $menu_element->subject }}/1')"><a href="{{ route('category', ['class' => $class->class, 'subject' => $menu_element->subject, 'page' => 1]) }}">{{ $menu_element->subject }}</a></div>
                                 @endforeach
                             </div>
                             <div class="subject-column3">

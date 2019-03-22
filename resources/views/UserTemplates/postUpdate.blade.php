@@ -1,5 +1,5 @@
 <div id="post-create">
-    <form method="post" action="{{ url("/nguoi-dung/sua-bai-viet/$post_detail->id") }}">
+    <form method="post" action="{{ route('user.edit', ['post_id' => $post_detail->id]) }}">
         {{ csrf_field() }}
         <div class="post-banner">
             <h1 class="f-regular-25">Cập nhật bài viết</h1>

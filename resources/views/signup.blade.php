@@ -14,7 +14,7 @@
     <div class="login-container signup-container">
         <div class="login-form">
             <div class="close-form" onclick="directTo('/')"><i class="fas fa-times"></i></div>
-            <form method="post" action="{{ url('dang-ky') }}">
+            <form method="post" action="{{ route('signup') }}">
                 {{ csrf_field() }}
                 <p class="form-title f-regular-25">Đăng ký tài khoản</p>
                 <div class="main-form">
@@ -36,7 +36,7 @@
                 <div class="footer-form f-regular-14">
                     <p>
                         Bạn đã có tài khoản?
-                        <a href="{{ url("dang-nhap") }}">Đăng nhập</a>
+                        <a href="{{ route('login') }}">Đăng nhập</a>
                     </p>
                 </div>
             </form>

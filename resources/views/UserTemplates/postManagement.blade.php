@@ -21,8 +21,8 @@
                     <td>{{ $post->like_num }}</td>
                     <td class="content-column">{!! $post->content !!}</td>
                     <td>
-                        <a href="{{ url("/bai-viet/$post->id") }}">Xem</a>
-                        <a href="{{ url("/nguoi-dung/sua-bai-viet/$post_id/df") }}">Sửa</a>
+                        <a href="{{ route('detail', ['post_id' => $post->id]) }}">Xem</a>
+                        <a href="{{ route('user.edit', ['post_id' => $post_id]) }}">Sửa</a>
                         @php $input[0] = $post_id; $input[1] = $index @endphp
                         <a onclick="deletePost({{ json_encode($input) }})">Xóa</a>
                     </td>
