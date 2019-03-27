@@ -17,8 +17,8 @@ class PostsTableSeeder extends Seeder
             DB::table('posts')->insert([
                 'title' => $faker->sentence(),
                 'user_id' => $faker->randomElement([1, 2]),
-                'view_num' => $faker->randomNumber(),
-                'like_num' => $faker->randomNumber(),
+                'view_num' => $faker->numberBetween(0, 123456),
+                'like_num' => $faker->numberBetween(0, 1000),
                 'subject_id' => $faker->numberBetween(1, 132),
                 'content' => $faker->text(600),
             ]);
