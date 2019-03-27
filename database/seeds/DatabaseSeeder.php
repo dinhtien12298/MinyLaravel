@@ -11,8 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->where('id', '=', '1')->update([
-            'password' => bcrypt('12298'),
-        ]);
+        $this->call(UsersTableSeeder::class);
+        $this->call(AdvertimentsTableSeeder::class);
+        $this->call(ClassesTableSeeder::class);
+        $this->call(SubjectsTableSeeder::class);
+        $this->call(PostsTableSeeder::class);
     }
 }

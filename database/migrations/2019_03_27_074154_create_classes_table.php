@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUserstableColumn extends Migration
+class CreateClassesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddUserstableColumn extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('remember_token')->nullable();
+        Schema::create('classes', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('class')->collation('utf8_unicode_ci');
         });
     }
 
@@ -25,8 +26,6 @@ class AddUserstableColumn extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('remember_token');
-        });
+        Schema::dropIfExists('classes');
     }
 }

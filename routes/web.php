@@ -27,11 +27,15 @@ Route::get('/dang-xuat', 'AuthController@logout');
 
 Route::group(['prefix' => 'nguoi-dung', 'middleware' => 'userLogin'], function () {
     Route::get('/thong-tin-ca-nhan', 'UserController@getInformation')->name('user.information');
+
     Route::get('/cap-nhat-thong-tin/{error?}', 'UserController@getUpdateInfo')->name('user.update');
     Route::post('/cap-nhat-thong-tin', 'UserController@postUpdateInfo')->name('user.update');
+
     Route::get('/quan-ly-bai-viet', 'UserController@postManagement')->name('user.postManagement');
+
     Route::get('/sua-bai-viet/{post_id}/{error?}', 'UserController@getEditPost')->name('user.edit');
     Route::post('/sua-bai-viet/{post_id}', 'UserController@postEditPost')->name('user.edit');
+
     Route::get('/dang-bai/{error?}', 'UserController@getPostCreate')->name('user.postCreate');
     Route::post('/dang-bai', 'UserController@postPostCreate')->name('user.postCreate');
 
