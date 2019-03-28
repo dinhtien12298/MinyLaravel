@@ -12,7 +12,7 @@ if (classInput) {
 function searchSubjectsOfClass(class_name) {
     axios({
         method: 'GET',
-        url: `tim-chu-de/${ class_name }`
+        url: proxy._searchSubjects + class_name
     }).then(response => {
         if (response.data && response.data.length > 0) {
             var data = response.data;
@@ -35,7 +35,7 @@ function deletePost(input) {
         const removeContent = document.getElementsByTagName('tr')[index + 1].innerHTML;
         axios({
             method: 'GET',
-            url: `xoa-bai/${ post_id }`
+            url: proxy._deletePost + post_id
         }).then(response => {
             if (response.data) {
                 postTable.innerHTML = saveContent.replace(removeContent, '');

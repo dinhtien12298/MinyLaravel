@@ -17,7 +17,7 @@ for (let i = 0; i < subjectTab.length; i++) {
             if (k == parseInt(i/4) + 1) {
                 axios({
                     method: 'GET',
-                    url: `/tim-kiem-tab/${ subjectTab[i].dataset.subjectid }`,
+                    url: proxy._searchTab + subjectTab[i].dataset.subjectid
                 }).then((response) => {
                     if (response.data) {
                         var posts = response.data;

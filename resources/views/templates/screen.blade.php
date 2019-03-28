@@ -34,6 +34,7 @@
     @yield('main')
     @include('templates/footer')
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{{ asset('js/config.js') }}"></script>
     <script src="{{ asset('js/common.js') }}"></script>
     <div id="fb-root"></div>
     <script>

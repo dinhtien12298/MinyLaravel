@@ -13,7 +13,7 @@ class PostsTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        for ($i = 0; $i < 200; $i++) {
+        for ($i = 0; $i < 600; $i++) {
             DB::table('posts')->insert([
                 'title' => $faker->sentence(),
                 'user_id' => $faker->randomElement([1, 2]),
