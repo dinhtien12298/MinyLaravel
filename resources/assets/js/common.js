@@ -124,7 +124,7 @@ if (document.getElementById('search')) {
         var keyword = (searchBar.value.length > 0) ? searchBar.value : '****';
         axios({
             method: 'GET',
-            url: `tim-kiem-bai-viet/${ keyword }`
+            url: proxy._searchPosts + keyword
         }).then(response => {
             if (response.data && response.data.length > 0) {
                 var posts = response.data;
