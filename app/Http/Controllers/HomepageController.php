@@ -52,18 +52,18 @@ class HomepageController extends Controller
             $index = array_search($class_name, $this->list_classes);
             $data_content[$index] = [];
             if ($class_name == $this->latest) {
-                $data_content[$index] = PostModel::join('users', 'users.id', '=', 'posts.user_id')
-                    ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname')
+                $data_content[$index] = PostModel::with('user')
+                    ->orderBy('posts.id', 'desc')
                     ->limit(6)
                     ->get();
             } else {
                 $subject = $list_buttons[$index][0]->subject;
-                $data_content[$index] = PostModel::join('users', 'users.id', '=', 'posts.user_id')
-                    ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
-                    ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname', 'class', 'subject')
+                $data_content[$index] = PostModel::with('user')
+                    ->join('subjects', 'subjects.id', '=', 'subject_id')
+                    ->orderBy('posts.id', 'desc')
                     ->where([
-                        ['class', "$class_name"],
-                        ['subject', "$subject"],
+                        ['class', $class_name],
+                        ['subject', $subject],
                     ])
                     ->limit(6)
                     ->get();

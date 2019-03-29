@@ -29,7 +29,7 @@ for (let i = 0; i < subjectTab.length; i++) {
                                 </div>
                                 <div class="post-heading d-flex">
                                     <div class="post-author f-medium-12">
-                                        ${ post.fullname }
+                                        ${ post.user.fullname }
                                     </div>
                                     <div class="post-info f-regular-13">
                                         <div><img src="/images/homepage/icon-view.png" alt="icon-view">${ post.view_num }</div>

@@ -23,7 +23,7 @@ class AuthController extends Controller
         if (Auth::attempt(['username' => $username, 'password' => $password])) {
             return redirect('nguoi-dung/thong-tin-ca-nhan');
         } else {
-            $user = UserModel::where('username', "$username")->count();
+            $user = UserModel::where('username', $username)->count();
             if ($user == 0) {
                 $error = 'Tên tài khoản không tồn tại!';
             } else {
@@ -79,7 +79,7 @@ class AuthController extends Controller
 
     public function checkUsername($username)
     {
-        $check = UserModel::where('username', "$username")->count();
+        $check = UserModel::where('username', $username)->count();
         if ($check == 0) {
             return false;
         }
@@ -88,7 +88,7 @@ class AuthController extends Controller
 
     public function checkEmail($email)
     {
-        $check = UserModel::where('email', "$email")->count();
+        $check = UserModel::where('email', $email)->count();
         if ($check == 0) {
             return false;
         }
@@ -97,7 +97,7 @@ class AuthController extends Controller
 
     public function checkPhone($phone)
     {
-        $check = UserModel::where('phone', "$phone")->count();
+        $check = UserModel::where('phone', $phone)->count();
         if ($check == 0) {
             return false;
         }

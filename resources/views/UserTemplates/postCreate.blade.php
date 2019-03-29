@@ -31,6 +31,6 @@
             <textarea class="content-input" name="content" placeholder="Nội dung" required></textarea>
             <script>CKEDITOR.replace( 'content' )</script>
         </div>
-        <button name="submit" type="submit">Đăng bài</button>
+        <button name="submit" class="f-regular-17" type="submit">Đăng bài</button>
     </form>
 </div>

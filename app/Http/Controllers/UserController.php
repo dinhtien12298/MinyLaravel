@@ -24,10 +24,7 @@ class UserController extends Controller
         $data = $this->dataComponents($input);
 
         $user_id = $this->user->id;
-        $all_posts = PostModel::join('subjects', 'subjects.id', '=', 'posts.subject_id')
-            ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'class', 'subject')
-            ->where('user_id', $user_id)
-            ->get();
+        $all_posts = PostModel::where('user_id', $user_id)->get();
 
         $username_title = 'Tên tài khoản';
         $password_title = 'Mật khẩu';
@@ -110,8 +107,8 @@ class UserController extends Controller
         $data = $this->dataComponents($input);
 
         $user_id = $this->user->id;
-        $data['all_posts'] = PostModel::join('subjects', 'subjects.id', '=', 'posts.subject_id')
-            ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'class', 'subject')
+        $data['all_posts'] = PostModel::with('subject')
+            ->orderBy('posts.id', 'desc')
             ->where('user_id', $user_id)
             ->get();
 
@@ -129,9 +126,7 @@ class UserController extends Controller
         if ($error != null) {
             $data['error'] = $error;
         }
-        $data['post_detail'] = PostModel::join('users', 'users.id', '=', 'posts.user_id')
-            ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
-            ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname', 'class', 'subject')
+        $data['post_detail'] = PostModel::with( 'subject')
             ->where('posts.id', $post_id)
             ->first();
 
@@ -143,12 +138,6 @@ class UserController extends Controller
 
     public function postEditPost($post_id, Request $request)
     {
-        $data['post_detail'] = PostModel::join('users', 'users.id', '=', 'posts.user_id')
-            ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
-            ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname', 'class', 'subject')
-            ->where('posts.id', $post_id)
-            ->get();
-
         $title = $request['title'];
         $subject = $request['subject'];
         $class = $request['class'];
@@ -162,8 +151,8 @@ class UserController extends Controller
             return redirect()->route('user.edit', ['post_id' => $post_id, 'error' => $error]);
         } else {
             $subject = SubjectModel::where([
-                    ['subject', "$subject"],
-                    ['class', "$class"],
+                    ['subject', $subject],
+                    ['class', $class],
                 ])
                 ->first();
             $subject_id = $subject->id;
@@ -208,8 +197,8 @@ class UserController extends Controller
             return redirect()->route('user.postCreate', ['error' => $error]);
         } else {
             $subject = SubjectModel::where([
-                    ['subject', "$subject"],
-                    ['class', "$class"],
+                    ['subject', $subject],
+                    ['class', $class],
                 ])
                 ->first();
             $subject_id = $subject->id;

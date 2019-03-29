@@ -32,7 +32,7 @@
                                         </div>
                                         <div class="post-heading d-flex">
                                             <div class="post-author f-medium-12">
-                                                {{ $list_posts[$i]->fullname }}
+                                                {{ $list_posts[$i]->user->fullname }}
                                             </div>
                                             <div class="post-info f-regular-13">
                                                 <div><img src="{{ asset('images/homepage/icon-view.png') }}" alt="icon-view">{{ $list_posts[$i]->view_num }}</div>

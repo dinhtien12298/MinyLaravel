@@ -12,7 +12,7 @@
                     <div class="post-heading">
                         <div class="post-author">
                             <a href=""><img class="author-thumbnail" src="{{ asset('images/thumbnail/author-post.png') }}" alt=""></a>
-                            <a class="f-medium-15" href="">{{ $post->fullname }}</a>
+                            <a class="f-medium-15" href="">{{ $post->user->fullname }}</a>
                         </div>
                         <div class="post-info">
                             <div><img src="{{ asset('images/homepage/icon-view.png') }}" alt="icon-view">{{ $post->view_num }}</div>
@@ -54,7 +54,7 @@
                             </div>
                             <div class="post-heading d-flex">
                                 <div class="post-author f-medium-12">
-                                    {{ $data_more_post[$i]->fullname }}
+                                    {{ $data_more_post[$i]->user->fullname }}
                                 </div>
                                 <div class="post-info f-regular-13">
                                     <div><img src="{{ asset('images/homepage/icon-view.png') }}" alt="icon-view">{{ $data_more_post[$i]->view_num }}</div>

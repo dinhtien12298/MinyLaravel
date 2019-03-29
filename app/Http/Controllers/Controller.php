@@ -73,7 +73,7 @@ class Controller extends BaseController
             $data['banner_title'] = "$class - GIẢI BÀI TẬP $class";
         } elseif ($post_id != '') {
             $post = PostModel::select('title', 'subject', 'class')
-                ->join('subjects', 'posts.subject_id', '=', 'subjects.id')
+                ->join('subjects', 'subject_id', '=', 'subjects.id')
                 ->find($post_id);
             $input['post'] = $post;
             $subject = $post->subject;
@@ -91,7 +91,7 @@ class Controller extends BaseController
         if ($post_id != '') {
             $subject_id = PostModel::find($post_id)->subject_id;
             $data_related = PostModel::select('id', 'title')->where([
-                ['subject_id', '=', $subject_id],
+                ['subject_id', $subject_id],
                 ['id', '!=', $post_id],
             ])->limit(8)->get();
             $data['all_ads'] = $all_ads;

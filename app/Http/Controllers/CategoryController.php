@@ -68,7 +68,7 @@ class CategoryController extends Controller
     public function getSubjectBasicData()
     {
         $class = $this->class;
-        $all_subjects = SubjectModel::where('class', "$class")->get();
+        $all_subjects = SubjectModel::where('class', $class)->get();
         return $all_subjects;
     }
 
@@ -77,9 +77,9 @@ class CategoryController extends Controller
         $data_content = [];
         foreach ($all_subjects as $subject) {
             $index = $all_subjects->search($subject);
-            $data_content[$index] = PostModel::join('users', 'users.id', '=', 'posts.user_id')
-                ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
-                ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname', 'class', 'subject')
+            $data_content[$index] = PostModel::with('user')
+                ->join('subjects', 'subjects.id', '=', 'subject_id')
+                ->orderBy('posts.id', 'desc')
                 ->where('subjects.id', $subject->id)
                 ->limit(3)
                 ->get();
@@ -91,19 +91,19 @@ class CategoryController extends Controller
     {
         $start_number = 9 * ($page - 1);
         if ($this->class == $this->latest) {
-            $data_content = PostModel::join('users', 'users.id', '=', 'posts.user_id')
-                ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname')
+            $data_content = PostModel::with('user')
+                ->orderBy('id', 'desc')
                 ->skip($start_number)
                 ->take(9)
                 ->get();
             $number_of_records = 27;
         } else {
             $subject_id = SubjectModel::where([
-                ['subject', "$this->subject"],
-                ['class', "$this->class"],
+                ['subject', $this->subject],
+                ['class', $this->class],
             ])->first()->id;
-            $data_content = PostModel::join('users', 'users.id', '=', 'posts.user_id')
-                ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname')
+            $data_content = PostModel::with('user')
+                ->orderBy('id', 'desc')
                 ->where('subject_id', $subject_id)
                 ->skip($start_number)
                 ->take(9)

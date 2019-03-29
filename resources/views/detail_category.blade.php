@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="post-heading d-flex">
                                     <div class="post-author f-medium-12">
-                                        {{ $data_content[$i]->fullname }}
+                                        {{ $data_content[$i]->user->fullname }}
                                     </div>
                                     <div class="post-info f-regular-13">
                                         <div><img src="{{ asset('images/homepage/icon-view.png') }}" alt="icon-view">{{ $data_content[$i]->view_num }}</div>

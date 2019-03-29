@@ -17,9 +17,9 @@ class SearchController extends Controller
 
     public function searchTabPost($subject_id)
     {
-        $data = PostModel::join('users', 'users.id', '=', 'posts.user_id')
-            ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
-            ->where('subjects.id',"$subject_id")
+        $data = PostModel::join('subjects', 'subjects.id', '=', 'subject_id')
+            ->orderBy('posts.id', 'desc')
+            ->where('subjects.id', $subject_id)
             ->limit(6)
             ->get();
         echo json_encode($data);
@@ -27,7 +27,7 @@ class SearchController extends Controller
 
     public function deletePost($post_id)
     {
-        $delete = PostModel::where('id',"$post_id")->delete();
+        $delete = PostModel::destroy($post_id);
         if (!$delete) {
             echo "Xóa bài viết không thành công!";
         } else {
@@ -37,7 +37,7 @@ class SearchController extends Controller
 
     public function searchSubjects($class)
     {
-        $data = SubjectModel::where('class', "$class")->get();
+        $data = SubjectModel::where('class', $class)->get();
         echo json_encode($data);
     }
 }

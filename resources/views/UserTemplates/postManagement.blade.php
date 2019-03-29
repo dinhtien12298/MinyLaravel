@@ -15,8 +15,8 @@
                 $post_id = $post->id @endphp
                 <tr class="f-regular-14">
                     <td>{{ $post->title }}</td>
-                    <td>{{ $post->class }}</td>
-                    <td>{{ $post->subject }}</td>
+                    <td>{{ $post->subject->class }}</td>
+                    <td>{{ $post->subject->subject }}</td>
                     <td>{{ $post->view_num }}</td>
                     <td>{{ $post->like_num }}</td>
                     <td class="content-column">{!! $post->content !!}</td>

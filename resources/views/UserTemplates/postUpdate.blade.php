@@ -17,7 +17,7 @@
                     @foreach ($all_classes as $class)
                         <option
                             value="{{ $class->class }}"
-                            @if ($class->class == $post_detail->class)
+                            @if ($class->class == $post_detail->subject->class)
                                 selected
                             @endif
                         >
