@@ -48,7 +48,7 @@
                 <div class="line-orange"></div>
                 <div class="tab-post">
                     @for ($i = 0; $i < sizeof($data_more_post); $i++)
-                        <div class="post-model" onclick="directTo('/bai-viet/{{ $data_more_post[$i]->id }}')">
+                        <div class="post-model" onclick="directTo('{{ route('detail', ['post_id' => $data_more_post[$i]->id]) }}')">
                             <div class="post-title">
                                 <a href="{{ route('detail', ['post_id' => $data_more_post[$i]->id]) }}" class="f-medium-17">{{ $data_more_post[$i]->title }}</a>
                             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdvertimentModel;
+use App\Models\ClassModel;
 use App\Models\PostModel;
 use App\Models\SubjectModel;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -39,9 +40,9 @@ class Controller extends BaseController
     {
         $data = [];
         $data_menu = [];
-        $all_classes = array_reverse(DB::table('classes')->get()->toArray());
+        $all_classes = ClassModel::all()->reverse();
         foreach ($all_classes as $class) {
-            $index = array_search($class, $all_classes);
+            $index = $all_classes->search($class);
             $data_menu[$index][0] = [];
             $data_menu[$index][1] = [];
             $class_name = $class->class;

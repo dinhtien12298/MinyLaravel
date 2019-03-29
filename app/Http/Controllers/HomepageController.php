@@ -11,10 +11,12 @@ use DB;
 class HomepageController extends Controller
 {
     protected $list_classes;
+    protected $latest;
     public function __construct()
     {
+        $this->latest = 'Mới nhất';
         $this->list_classes = [
-            'Mới nhất',
+            $this->latest,
             'lớp 9',
             'lớp 8'
         ];
@@ -49,19 +51,19 @@ class HomepageController extends Controller
         foreach ($this->list_classes as $class_name) {
             $index = array_search($class_name, $this->list_classes);
             $data_content[$index] = [];
-            if ($class_name == "Mới nhất") {
+            if ($class_name == $this->latest) {
                 $data_content[$index] = PostModel::join('users', 'users.id', '=', 'posts.user_id')
-                    ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'users.fullname')
+                    ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname')
                     ->limit(6)
                     ->get();
             } else {
                 $subject = $list_buttons[$index][0]->subject;
                 $data_content[$index] = PostModel::join('users', 'users.id', '=', 'posts.user_id')
                     ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
-                    ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'users.fullname', 'subjects.class', 'subjects.subject')
+                    ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname', 'class', 'subject')
                     ->where([
-                        ['subjects.class', '=', "$class_name"],
-                        ['subjects.subject', '=', "$subject"],
+                        ['class', "$class_name"],
+                        ['subject', "$subject"],
                     ])
                     ->limit(6)
                     ->get();

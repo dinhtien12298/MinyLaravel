@@ -13,8 +13,10 @@ class CategoryController extends Controller
     protected $class;
     protected $subject;
     protected $page;
+    protected $latest;
     public function category($class, $subject = null, $page = null)
     {
+        $this->latest = 'Mới nhất';
         $this->class = $class;
         $this->subject = $subject;
         $this->page = $page;
@@ -28,7 +30,7 @@ class CategoryController extends Controller
 
     public function basic()
     {
-        if ($this->class == 'Mới nhất') {
+        if ($this->class == $this->latest) {
             return $this->detail();
         } else {
             $input['page'] = 'category';
@@ -50,7 +52,7 @@ class CategoryController extends Controller
         $input['subject'] = $this->subject;
         $data = $this->dataComponents($input);
         $page = $this->page;
-        $tab_title = ($this->class == 'Mới nhất') ? $this->class : $this->subject;
+        $tab_title = ($this->class == $this->latest) ? $this->class : $this->subject;
         $data['class'] = $input['class'];
         $data['subject'] = $input['subject'];
         $data['tab_title'] = $tab_title;
@@ -66,7 +68,7 @@ class CategoryController extends Controller
     public function getSubjectBasicData()
     {
         $class = $this->class;
-        $all_subjects = DB::table('subjects')->where('class', "$class")->get()->toArray();
+        $all_subjects = SubjectModel::where('class', "$class")->get();
         return $all_subjects;
     }
 
@@ -74,10 +76,10 @@ class CategoryController extends Controller
     {
         $data_content = [];
         foreach ($all_subjects as $subject) {
-            $index = array_search($subject, $all_subjects);
+            $index = $all_subjects->search($subject);
             $data_content[$index] = PostModel::join('users', 'users.id', '=', 'posts.user_id')
                 ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
-                ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'users.fullname', 'subjects.class', 'subjects.subject')
+                ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname', 'class', 'subject')
                 ->where('subjects.id', $subject->id)
                 ->limit(3)
                 ->get();
@@ -88,7 +90,7 @@ class CategoryController extends Controller
     public function getPostDetailData($page)
     {
         $start_number = 9 * ($page - 1);
-        if ($this->class == 'Mới nhất') {
+        if ($this->class == $this->latest) {
             $data_content = PostModel::join('users', 'users.id', '=', 'posts.user_id')
                 ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname')
                 ->skip($start_number)
@@ -101,7 +103,7 @@ class CategoryController extends Controller
                 ['class', "$this->class"],
             ])->first()->id;
             $data_content = PostModel::join('users', 'users.id', '=', 'posts.user_id')
-                ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'users.fullname')
+                ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname')
                 ->where('subject_id', $subject_id)
                 ->skip($start_number)
                 ->take(9)

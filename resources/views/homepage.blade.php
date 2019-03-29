@@ -22,7 +22,7 @@
                         </div>
                     @endif
                     <div class="view-all">
-                        <a class="view-all-tag f-regular-13" onclick="directTo('/danh-muc/{{ $class_name }}/1')">
+                        <a class="view-all-tag f-regular-13" onclick="directTo('{{ route('category', ['class' => $class_name, 'subject' => '1']) }}')">
                         Xem tất cả
                         <i class="fas fa-caret-right"></i>
                         </a>
@@ -31,7 +31,7 @@
                 <div class="line-orange"></div>
                 <div class="tab-post">
                     @for ($i = 0; $i < sizeof($data_content[$index]); $i++)
-                        <div class="post-model" onclick="directTo('/bai-viet/{{ $data_content[$index][$i]->id }}')">
+                        <div class="post-model" onclick="directTo('{{ route('detail', ['post_id' => $data_content[$index][$i]->id]) }}')">
                             <div class="post-title">
                                 <a href="{{ route('detail', ['post_id' => $data_content[$index][$i]->id]) }}" class="f-medium-17">{{ $data_content[$index][$i]->title }}</a>
                             </div>

@@ -7,5 +7,5 @@
             </div>
         @endforeach
     </div>
-    <div class="update-button"><button onclick="directTo('/nguoi-dung/cap-nhat-thong-tin')" class="f-medium-17">Cập nhật thông tin</button></div>
+    <div class="update-button"><button onclick="directTo('{{ route('user.update') }}')" class="f-medium-17">Cập nhật thông tin</button></div>
 </div>

@@ -11,7 +11,7 @@
         </tr>
         @if (sizeof($all_posts) > 0)
             @foreach ($all_posts as $post)
-                @php $index = array_search($post, $all_posts);
+                @php $index = $all_posts->search($post);
                 $post_id = $post->id @endphp
                 <tr class="f-regular-14">
                     <td>{{ $post->title }}</td>

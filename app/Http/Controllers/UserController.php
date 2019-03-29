@@ -29,16 +29,27 @@ class UserController extends Controller
             ->where('user_id', $user_id)
             ->get();
 
-        $list_info['Tên tài khoản'] = $this->user->username;
-        $list_info['Mật khẩu'] = '**********';
-        $list_info['Tên đầy đủ'] = $this->user->fullname;
-        $list_info['Tổng số bài viết'] = sizeof($all_posts);
-        $list_info['Tổng lượt xem'] = $this->findTotalPostInfo($all_posts)[0];
-        $list_info['Tổng lượt thích'] = $this->findTotalPostInfo($all_posts)[1];
-        $list_info['Số điện thoại'] = $this->user->phone;
-        $list_info['Email'] = $this->user->email;
-        $list_info['Ngày sinh'] = $this->user->birth;
-        $list_info['Cơ quan/Trường học'] = $this->user->working;
+        $username_title = 'Tên tài khoản';
+        $password_title = 'Mật khẩu';
+        $fullname_title = 'Tên đầy đủ';
+        $total_post_title = 'Tổng số bài viết';
+        $total_view_title = 'Tổng lượt xem';
+        $total_like_title = 'Tổng lượt thích';
+        $phone_title = 'Số điện thoại';
+        $email_title = 'Email';
+        $birth_title = 'Ngày sinh';
+        $working_title = 'Cơ quan/Trường học';
+
+        $list_info[$username_title] = $this->user->username;
+        $list_info[$password_title] = '**********';
+        $list_info[$fullname_title] = $this->user->fullname;
+        $list_info[$total_post_title] = sizeof($all_posts);
+        $list_info[$total_view_title] = $this->findTotalPostInfo($all_posts)[0];
+        $list_info[$total_like_title] = $this->findTotalPostInfo($all_posts)[1];
+        $list_info[$phone_title] = $this->user->phone;
+        $list_info[$email_title] = $this->user->email;
+        $list_info[$birth_title] = $this->user->birth;
+        $list_info[$working_title] = $this->user->working;
 
         $data['list_info'] = $list_info;
         $data['page'] = 'information';
@@ -89,7 +100,8 @@ class UserController extends Controller
         $user->working = $working;
         $user->save();
 
-        return redirect('/nguoi-dung/cap-nhat-thong-tin');
+        $error = 'Cập nhật thông tin thành công!';
+        return redirect()->route('user.update', ['error' => $error]);
     }
 
     public function postManagement()
@@ -98,11 +110,10 @@ class UserController extends Controller
         $data = $this->dataComponents($input);
 
         $user_id = $this->user->id;
-        $data['all_posts'] = DB::table('posts')
-            ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
+        $data['all_posts'] = PostModel::join('subjects', 'subjects.id', '=', 'posts.subject_id')
             ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'class', 'subject')
             ->where('user_id', $user_id)
-            ->get()->toArray();
+            ->get();
 
         $data['page'] = 'postManagement';
         $data['userLogin'] = true;
@@ -118,13 +129,11 @@ class UserController extends Controller
         if ($error != null) {
             $data['error'] = $error;
         }
-        $data['post_detail'] = DB::table('posts')
-            ->join('users', 'users.id', '=', 'posts.user_id')
+        $data['post_detail'] = PostModel::join('users', 'users.id', '=', 'posts.user_id')
             ->join('subjects', 'subjects.id', '=', 'posts.subject_id')
             ->select('posts.id', 'title', 'view_num', 'like_num', 'content', 'fullname', 'class', 'subject')
             ->where('posts.id', $post_id)
             ->first();
-        $data['all_classes'] = DB::table('classes')->get()->toArray();
 
         $data['page'] = 'postUpdate';
         $data['userLogin'] = true;
@@ -147,10 +156,10 @@ class UserController extends Controller
 
         if ($title == '') {
             $error = 'Bạn chưa nhập tiêu đề!';
-            return redirect("/nguoi-dung/sua-bai-viet/$post_id/$error");
+            return redirect()->route('user.edit', ['post_id' => $post_id, 'error' => $error]);
         } elseif ($content == '') {
             $error = 'Bạn chưa có nội dung!';
-            return redirect("/nguoi-dung/sua-bai-viet/$post_id/$error");
+            return redirect()->route('user.edit', ['post_id' => $post_id, 'error' => $error]);
         } else {
             $subject = SubjectModel::where([
                     ['subject', "$subject"],
@@ -164,7 +173,7 @@ class UserController extends Controller
             $post->subject_id = $subject_id;
             $post->save();
 
-            return redirect('/nguoi-dung/quan-ly-bai-viet');
+            return redirect()->route('user.postManagement');
         }
     }
 
@@ -176,7 +185,6 @@ class UserController extends Controller
         if ($error != null) {
             $data['error'] = $error;
         }
-        $data['all_classes'] = DB::table('classes')->get()->toArray();
 
         $data['page'] = 'postCreate';
         $data['userLogin'] = true;
@@ -194,10 +202,10 @@ class UserController extends Controller
 
         if ($title == '') {
             $error = 'Bạn chưa nhập tiêu đề!';
-            return redirect("/nguoi-dung/dang-bai/$error");
+            return redirect()->route('user.postCreate', ['error' => $error]);
         } elseif ($content == '') {
             $error = 'Bạn chưa có nội dung!';
-            return redirect("/nguoi-dung/dang-bai/$error");
+            return redirect()->route('user.postCreate', ['error' => $error]);
         } else {
             $subject = SubjectModel::where([
                     ['subject', "$subject"],
@@ -213,7 +221,7 @@ class UserController extends Controller
             $new_post->user_id = $user_id;
             $new_post->save();
 
-            return redirect('/nguoi-dung/quan-ly-bai-viet');
+            return redirect()->route('user.postManagement');
         }
     }
 }

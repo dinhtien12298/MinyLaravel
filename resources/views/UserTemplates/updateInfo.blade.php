@@ -37,5 +37,7 @@
      @if (isset($error))
         <div class="error-messages f-regular-17">{{ $error }}</div>
      @endif
-    <div class="update-button"><button id="update-userInfo-button" name="submit" type="submit" class="f-medium-17">Cập nhật thông tin</button></div>
+    <div class="update-button">
+        <button id="update-userInfo-button" name="submit" type="submit" class="f-regular-17">Cập nhật</button>
+    </div>
 </form>

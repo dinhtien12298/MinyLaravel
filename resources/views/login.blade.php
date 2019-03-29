@@ -13,7 +13,7 @@
 <body>
     <div class="login-container">
         <div class="login-form">
-            <div class="close-form" onclick="directTo('/')"><i class="fas fa-times"></i></div>
+            <div class="close-form" onclick="directTo('{{ route('homepage') }}')"><i class="fas fa-times"></i></div>
             <form method="post" action="{{ route('login') }}">
                 {{csrf_field()}}
                 <p class="form-title f-regular-25">Đăng nhập</p>

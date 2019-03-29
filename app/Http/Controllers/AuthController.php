@@ -29,7 +29,7 @@ class AuthController extends Controller
             } else {
                 $error = 'Sai mật khẩu!';
             }
-            return redirect("dang-nhap/$error");
+            return redirect()->route('login', ['error' => $error]);
         }
     }
 
@@ -52,16 +52,16 @@ class AuthController extends Controller
 
         if ($password != $confirm_password) {
             $error = 'Mật khẩu không trùng nhau!';
-            return redirect("dang-ky/$error");
+            return redirect()->route('signup', ['error' => $error]);
         } elseif ($this->checkUsername($username)) {
             $error = 'Tên tài khoản đã tồn tại!';
-            return redirect("dang-ky/$error");
+            return redirect()->route('signup', ['error' => $error]);
         } elseif ($this->checkEmail($email)) {
             $error = 'Địa chỉ Email đã được sử dụng!';
-            return redirect("dang-ky/$error");
+            return redirect()->route('signup', ['error' => $error]);
         } elseif ($this->checkPhone($phone)) {
             $error = 'Số điện thoại đã được sử dụng!';
-            return redirect("dang-ky/$error");
+            return redirect()->route('signup', ['error' => $error]);
         } else {
             $new_user = new UserModel();
             $new_user->username = $username;
@@ -73,7 +73,7 @@ class AuthController extends Controller
             $new_user->working = $working;
             $new_user->save();
             $error = 'Đăng ký thành công! Vui lòng đăng nhập!';
-            return redirect("dang-nhap/$error");
+            return redirect()->route('login', ['error' => $error]);
         }
     }
 
@@ -107,6 +107,6 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect('dang-nhap');
+        return redirect()->route('login');
     }
 }

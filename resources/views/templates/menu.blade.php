@@ -50,7 +50,7 @@
         </div>
         <div class="container d-flex f-medium-15">
             @foreach($all_classes as $class)
-                @php $index = array_search($class, $all_classes) @endphp
+                @php $index = $all_classes->search($class) @endphp
                 <div class="sub-menu" onmousemove="menuAppear()" onmouseout="menuDisappear()">
                     <div class="sub-title">
                         <a href="{{ route('category', ['class' => $class->class]) }}">{{ $class->class }}</a>
@@ -61,12 +61,12 @@
                         <div class="subject f-regular-13">
                             <div class="subject-column1">
                                 @foreach($data_menu[$index][0] as $menu_element)
-                                    <div class="menu-item" onclick="directTo('/danh-muc/{{ $class->class }}/{{ $menu_element->subject }}/1')"><a href="{{ route('category', ['class' => $class->class, 'subject' => $menu_element->subject, 'page' => 1]) }}">{{ $menu_element->subject }}</a></div>
+                                    <div class="menu-item" onclick="directTo('{{ route("category", ["class" => $class->class, "subject" => $menu_element->subject, "page" => 1]) }}')"><a href="{{ route('category', ['class' => $class->class, 'subject' => $menu_element->subject, 'page' => 1]) }}">{{ $menu_element->subject }}</a></div>
                                 @endforeach
                             </div>
                             <div class="subject-column2">
                                 @foreach($data_menu[$index][1] as $menu_element)
-                                    <div class="menu-item" onclick="directTo('/danh-muc/{{ $class->class }}/{{ $menu_element->subject }}/1')"><a href="{{ route('category', ['class' => $class->class, 'subject' => $menu_element->subject, 'page' => 1]) }}">{{ $menu_element->subject }}</a></div>
+                                    <div class="menu-item" onclick="directTo('{{ route("category", ["class" => $class->class, "subject" => $menu_element->subject, "page" => 1]) }}')"><a href="{{ route('category', ['class' => $class->class, 'subject' => $menu_element->subject, 'page' => 1]) }}">{{ $menu_element->subject }}</a></div>
                                 @endforeach
                             </div>
                             <div class="subject-column3">
