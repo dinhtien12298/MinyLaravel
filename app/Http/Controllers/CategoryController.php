@@ -13,10 +13,8 @@ class CategoryController extends Controller
     protected $class;
     protected $subject;
     protected $page;
-    protected $latest;
     public function category($class, $subject = null, $page = null)
     {
-        $this->latest = 'Mới nhất';
         $this->class = $class;
         $this->subject = $subject;
         $this->page = $page;
@@ -30,7 +28,7 @@ class CategoryController extends Controller
 
     public function basic()
     {
-        if ($this->class == $this->latest) {
+        if ($this->class == 'latest') {
             return $this->detail();
         } else {
             $input['page'] = 'category';
@@ -52,7 +50,7 @@ class CategoryController extends Controller
         $input['subject'] = $this->subject;
         $data = $this->dataComponents($input);
         $page = $this->page;
-        $tab_title = ($this->class == $this->latest) ? $this->class : $this->subject;
+        $tab_title = ($this->class == 'latest') ? 'Mới nhất' : $this->subject;
         $data['class'] = $input['class'];
         $data['subject'] = $input['subject'];
         $data['tab_title'] = $tab_title;
@@ -90,7 +88,7 @@ class CategoryController extends Controller
     public function getPostDetailData($page)
     {
         $start_number = 9 * ($page - 1);
-        if ($this->class == $this->latest) {
+        if ($this->class == 'latest') {
             $data_content = PostModel::with('user')
                 ->orderBy('id', 'desc')
                 ->skip($start_number)

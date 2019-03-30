@@ -20,6 +20,12 @@ class AuthController extends Controller
     {
         $username = $request['username'];
         $password = $request['password'];
+
+//        $this->validate($request, [
+//            'username' => 'bail|required|max:20',
+//            'password' => 'required',
+//        ]);
+
         if (Auth::attempt(['username' => $username, 'password' => $password])) {
             return redirect('nguoi-dung/thong-tin-ca-nhan');
         } else {

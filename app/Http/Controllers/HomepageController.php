@@ -11,12 +11,10 @@ use DB;
 class HomepageController extends Controller
 {
     protected $list_classes;
-    protected $latest;
     public function __construct()
     {
-        $this->latest = 'Mới nhất';
         $this->list_classes = [
-            $this->latest,
+            'latest',
             'lớp 9',
             'lớp 8'
         ];
@@ -40,7 +38,7 @@ class HomepageController extends Controller
         $list_buttons = [];
         foreach ($this->list_classes as $class) {
             $index = array_search($class, $this->list_classes);
-            $list_buttons[$index] = SubjectModel::where('class', "$class")->limit(4)->get();
+            $list_buttons[$index] = SubjectModel::where('class', $class)->limit(4)->get();
         }
         return $list_buttons;
     }
@@ -51,7 +49,7 @@ class HomepageController extends Controller
         foreach ($this->list_classes as $class_name) {
             $index = array_search($class_name, $this->list_classes);
             $data_content[$index] = [];
-            if ($class_name == $this->latest) {
+            if ($class_name == 'latest') {
                 $data_content[$index] = PostModel::with('user')
                     ->orderBy('posts.id', 'desc')
                     ->limit(6)

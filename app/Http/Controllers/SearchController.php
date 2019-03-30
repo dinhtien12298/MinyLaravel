@@ -12,32 +12,33 @@ class SearchController extends Controller
     public function searchPost($keyword)
     {
         $data = PostModel::select('id', 'title')->where('title', 'like', "%$keyword%")->get();
-        echo json_encode($data);
+        return response()->json($data);
     }
 
     public function searchTabPost($subject_id)
     {
-        $data = PostModel::join('subjects', 'subjects.id', '=', 'subject_id')
+        $data = PostModel::with('user')
+            ->join('subjects', 'subjects.id', '=', 'subject_id')
             ->orderBy('posts.id', 'desc')
             ->where('subjects.id', $subject_id)
             ->limit(6)
             ->get();
-        echo json_encode($data);
+        return response()->json($data);
     }
 
     public function deletePost($post_id)
     {
         $delete = PostModel::destroy($post_id);
         if (!$delete) {
-            echo "Xóa bài viết không thành công!";
+            return "Xóa bài viết không thành công!";
         } else {
-            echo "Xóa bài viết thành công!";
+            return "Xóa bài viết thành công!";
         }
     }
 
     public function searchSubjects($class)
     {
         $data = SubjectModel::where('class', $class)->get();
-        echo json_encode($data);
+        return response()->json($data);
     }
 }

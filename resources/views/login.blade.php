@@ -23,6 +23,15 @@
                     @if (isset($error))
                         <div class="login-messages f-regular-17">{{ $error }}</div>
                     @endif
+                    {{--@if (count($errors) > 0)--}}
+                        {{--<div class="alert alert-danger">--}}
+                            {{--<ul>--}}
+                                {{--@foreach ($errors->all() as $err)--}}
+                                    {{--<li>{{ $err }}</li>--}}
+                                {{--@endforeach--}}
+                            {{--</ul>--}}
+                        {{--</div>--}}
+                    {{--@endif--}}
                     <button class="f-bold-15 login-user" type="submit" name="submit">Đăng nhập</button>
                 </div>
                 <div class="footer-form f-regular-14">

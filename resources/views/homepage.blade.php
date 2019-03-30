@@ -12,7 +12,11 @@
             @if (sizeof($data_content[$index]) != 0)
                 <div class="tab-heading">
                     <div class="tab-title f-regular-30">
-                        {{ $class_name }}
+                        @if ($class_name = 'latest')
+                            Mới nhất
+                        @else
+                            {{ $class_name }}
+                        @endif
                     </div>
                     @if (sizeof($list_buttons[$index]) != 0)
                         <div class="menu-button f-regular-12">

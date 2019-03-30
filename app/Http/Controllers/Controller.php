@@ -70,7 +70,7 @@ class Controller extends BaseController
                 $input['subject'] = $subject;
             }
             $data['breadcrumb'] = $this->breadcrumb($input);
-            $data['banner_title'] = "$class - GIẢI BÀI TẬP $class";
+            $data['banner_title'] = ($class != 'latest') ? "$class - GIẢI BÀI TẬP $class" : "Mới nhất - GIẢI BÀI TẬP Mới nhất";
         } elseif ($post_id != '') {
             $post = PostModel::select('title', 'subject', 'class')
                 ->join('subjects', 'subject_id', '=', 'subjects.id')
